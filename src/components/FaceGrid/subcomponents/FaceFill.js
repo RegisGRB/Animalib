@@ -95,7 +95,7 @@ const StyledImg = styled(StyledTheme)`
     left: 0;
     z-index: 999;
     height: 100%;
-    background-color: ${(props) => props.theme.colors.text};
+    background-color: ${(props) => props.theme.colors.secondary};
   }
 `;
 

@@ -4,8 +4,9 @@
       ...Config,
       mode: "White",
       colors: {
-        text: "black",
-        background: "#ffffff",
+        primary: "#ffffff",
+        secondary: "black",
+        third:"#ff9800"
       }
   };
   

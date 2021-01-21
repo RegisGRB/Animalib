@@ -2,7 +2,10 @@
   font-family: police;
   src: url(./assets/font/MonumentExtended-Regular.otf);
 }
-
+@font-face {
+  font-family: Jungle;
+  src: url(./assets/font/BlackAnimal.otf);
+}
 $breakpoints: (
   "phone": 425px,
   "tablet": 768px,
@@ -11,7 +14,7 @@ $breakpoints: (
 ) !default;
 
 * {
-  font-weight: 900;
+  font-weight: 100;
   padding: 0;
   margin: 0;
   font-family: police;  
@@ -27,6 +30,13 @@ $breakpoints: (
 body,html{
   background-color: #171717;
 }
+// body::-webkit-scrollbar-track {
+//   background: #1e1e24;
+// }
+
+// body::-webkit-scrollbar-thumb {
+//   background: #6649b8;
+// }
 a {
   text-decoration: none; /* no underline */
 }

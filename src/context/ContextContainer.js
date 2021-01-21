@@ -12,8 +12,8 @@ const ContextContainer = ({ children, ...props }) => {
 };
 const GlobalStyle = createGlobalStyle`
 body,html {
-  background-color:${(props) => props.theme.colors.background };
-  color:${(props) => props.theme.colors.text };
+  background-color:${(props) => props.theme.colors.primary };
+  color:${(props) => props.theme.colors.secondary };
   transition:color 0.1s,background-color 0.1s,border-color 0.1s;
 }
 `;

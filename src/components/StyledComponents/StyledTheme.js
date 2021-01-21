@@ -2,14 +2,14 @@ import styled from "styled-components";
 // i DON't know if it's a good practice bUTTTTT YOlO
 
 const StyledTheme = styled.div`
-color: ${(props) => (props.fontcolor ? props.theme.colors.text : "")};
-color: ${(props) => (props.fontcolorinvert ? props.theme.colors.background : "")};
-background-color: ${(props) => props.backgroundcolor ? props.theme.colors.background : ""};
-background-color: ${(props) => props.backgroundcolorinvert ? props.theme.colors.text : ""};
-border-color:${(props) => (props.bordercolor ? props.theme.colors.text : "")};
+color: ${(props) => (props.fontcolor ? props.theme.colors.secondary : "")};
+color: ${(props) => (props.fontcolorinvert ? props.theme.colors.primary : "")};
+background-color: ${(props) => props.backgroundcolor ? props.theme.colors.primary : ""};
+background-color: ${(props) => props.backgroundcolorinvert ? props.theme.colors.secondary : ""};
+border-color:${(props) => (props.bordercolor ? props.theme.colors.secondary : "")};
 
-filter:${(props) => (props.shadow ? `drop-shadow(2px 4px 6px ${props.theme.colors.text} )` : "")};
-filter:${(props) => (props.shadowinvert ? `drop-shadow(2px 4px 6px ${props.theme.colors.background} )` : "")};
+filter:${(props) => (props.shadow ? `drop-shadow(2px 4px 6px ${props.theme.colors.secondary} )` : "")};
+filter:${(props) => (props.shadowinvert ? `drop-shadow(2px 4px 6px ${props.theme.colors.primary} )` : "")};
 
 margin: ${(props) => (props.margin ? props.margin : "")};
 margin-right: ${(props) => (props.marginright ? props.marginright : "")};
@@ -39,10 +39,10 @@ letter-spacing: ${(props) => (props.letterSpacing ? props.letterSpacing : "")};
 opacity: ${(props) => (props.opacity ? props.opacity : "")};
 cursor: ${(props) => (props.cursor ? props.cursor : "")};
 &:hover {
-  color:  ${(props) => (props.hoverfontcolor ? props.theme.colors.background : "")};
-  color: ${(props) => (props.hoverfontcolorinvert ? props.theme.colors.text : "")};
-  background-color:  ${(props) =>props.hoverbackgroundcolor ? props.theme.colors.text : ""};
-  border-color:${(props) => props.hoverbordercolor ? props.theme.colors.background : ""};
+  color:  ${(props) => (props.hoverfontcolor ? props.theme.colors.primary : "")};
+  color: ${(props) => (props.hoverfontcolorinvert ? props.theme.colors.secondary : "")};
+  background-color:  ${(props) =>props.hoverbackgroundcolor ? props.theme.colors.secondary : ""};
+  border-color:${(props) => props.hoverbordercolor ? props.theme.colors.primary : ""};
 
   margin: ${(props) => (props.hovermargin ? props.hovermargin : "")};
   margin-right: ${(props) => (props.hovermarginright ? props.hovermarginright : "")};
@@ -69,8 +69,8 @@ cursor: ${(props) => (props.cursor ? props.cursor : "")};
   cursor: ${(props) => (props.hovercursor ? props.hovercursor : "")};
 }
 & path{
-  stroke: ${(props) => (props.strokecolor ? props.theme.colors.text : "")};
-  stroke: ${(props) => (props.strokecolorinvert ? props.theme.colors.background : "")};
+  stroke: ${(props) => (props.strokecolor ? props.theme.colors.secondary : "")};
+  stroke: ${(props) => (props.strokecolorinvert ? props.theme.colors.primary : "")};
 }
 transition:color 1s,background-color 1s,border-color 1s;
 `;

@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import StyledTheme from "../StyledComponents/StyledTheme";
 
-const MotionModal = ({ controller, children ,hidden=["100vh",0,1],duration=1.6}) => {
+const MotionModal = ({ controller, children ,hidden=["100vh",0,1],show=[0,0,1],duration=1.6}) => {
 
   return (
-    <MotionFade controller={controller} exitbeforeenter={true} show={[0,0,1]} hidden={hidden} duration={duration}>
+    <MotionFade controller={controller} exitbeforeenter={true} show={show} hidden={hidden} duration={duration}>
       <StyledModal as={motion.div} backgroundcolor="true" >
         {children}
       </StyledModal>
@@ -21,8 +21,8 @@ const StyledModal = styled(StyledTheme)`
 position:absolute;
 top:0;
 left:0;
-width:100vw;
-height:100vh;
+width:fit-content;
+height:fit-content;
 z-index:9999
 `;
 

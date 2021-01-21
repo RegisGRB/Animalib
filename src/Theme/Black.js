@@ -1,13 +1,12 @@
+import Config from "./Config";
+const THEME = {
+  ...Config,
+  mode: "Black",
+  colors: {
+    primary: "#171717",
+    secondary: "#ffffff",
+    third: "#ff9800",
+  },
+};
 
-  import Config from "./Config";
-  const THEME = {
-      ...Config,
-      mode: "Black",
-      colors: {
-        text: "#ffffff",
-        background: "#171717",
-      }
-  };
-  
-  export default THEME;
-  
+export default THEME;

@@ -2,7 +2,7 @@ import React from 'react';
 import "./RotateText.scss";
 import {StyledTheme} from "../../StyledComponents";
 import styled from "styled-components";
-function RotateText({ text, arc, radius , size="1rem",rotating=true,children,...props}) {
+const RotateText = ({ text, arc, radius , size="1rem",rotating=true,children,...props})=> {
   const characters = text.split('');
   const degree = arc / characters.length;
 
@@ -30,7 +30,6 @@ function RotateText({ text, arc, radius , size="1rem",rotating=true,children,...
 
 const StyledRotateText = styled(StyledTheme)`
 font-size: ${(props) => ( props.size )};
-
 `;
 
 RotateText.defaultProps = {

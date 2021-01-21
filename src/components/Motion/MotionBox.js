@@ -3,10 +3,10 @@ import { AnimatePresence } from "framer-motion";
 const MotionBox = ({ controller, variants,exitbeforeenter=false, ...props }) => {
   return (
     <AnimatePresence exitBeforeEnter={exitbeforeenter}>
-      {controller === null && (
+      {controller && (
           React.cloneElement(props.children, {
             initial: "hidden",
-            animate: controller != null ? "hidden" : "show",
+            animate: controller ? "show" : "hidden",
             exit: "hidden",
             variants: variants,
           })
