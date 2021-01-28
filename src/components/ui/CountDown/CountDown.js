@@ -1,5 +1,5 @@
 import React from "react";
-import {StyledTheme} from "../../StyledComponents";
+import StyledTheme from "../../StyledComponents/StyledTheme";
 import {LangContext} from "../../../context";
 
 const CountDown = ({years,days,hours,minutes,seconds, millisec,className,label=true,Controller,CountdownTime,callback,props}) => {

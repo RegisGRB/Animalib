@@ -2,7 +2,7 @@
 import React from "react";
 import {LangContext} from "../../context";
 import {ThemeContext} from "../../context";
-import {StyledTheme} from "../../components/StyledComponents";
+import StyledTheme from "../../components/StyledComponents/StyledTheme";
 
 const Settings = () => {
 const LangContextx = React.useContext(LangContext);

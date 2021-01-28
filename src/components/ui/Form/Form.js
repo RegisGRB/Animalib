@@ -1,9 +1,10 @@
 import React from "react";
-import { StyledTheme } from "../../StyledComponents";
+import StyledTheme from "../../StyledComponents/StyledTheme";
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { helpers } from "../../../utils";
+import StyledInput from "../../elements/Input";
 const Form = ({
   UrlAPI,
   Fields,
@@ -97,7 +98,7 @@ React.useEffect(()=>{
   );
 };
 const StyledForm = styled.form``;
-const StyledInput = styled(StyledTheme)``;
+// const StyledInput = styled(StyledTheme)``;
 
 export default Form;
 // fields exemple

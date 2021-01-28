@@ -1,73 +1,44 @@
 import React from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Form from "../../components/ui/Form/Form";
 import styled from "styled-components";
-import { initialize } from "workbox-google-analytics";
-import { helpers } from "../../utils";
-import "./AniForm.scss";
-import { StyledButton } from "../StyledComponents";
-//https://cdn.dribbble.com/users/692322/screenshots/3991441/aroma-8-6.png
+import perro from "../../assets/icon/Animal Solid/PNG/240 x 240/toucan, beak, parrot.png";
+import { useHistory } from "react-router-dom";
 const AniForm = () => {
-  const [TypeForm, setTypeForm] = React.useState(true);
-  const LoginField = {
-    Email: {
-      type: "Email",
-      placeholder: "Email",
-      value: "",
-      required: true,
-    },
-    Password: {
-      type: "Password",
-      placeholder: "Password",
-      value: "",
-    },
-    Submit: {
-      type: "Submit",
-      value: "Login",
-    },
+  let history = useHistory();
+  const [TypeForm, setTypeForm] = React.useState(true); // type form true login false register
+
+  const LoginAction = (data) => {
+    // action faites avec la data de retour du formulaire LOGIN
+    console.log(data);
+    localStorage.setItem("token", "pokemon");
+    history.push("/Profile");
   };
-  const RegisterField = {
-    FirstName: {
-      type: "text",
-      placeholder: "FirstName",
-      value: "",
-    },
-    LastName: {
-      type: "text",
-      placeholder: "LastName",
-      value: "",
-    },
-    Password: {
-      type: "Password",
-      placeholder: "Password",
-      value: "",
-    },
-    Email: {
-      type: "Email",
-      placeholder: "Email",
-      value: "",
-      required: true,
-    },
-    Submit: {
-      type: "Submit",
-      value: "Register",
-    },
-  };
-  const LoginAction = () => {};
-  const RegisterAction = () => {};
+  const RegisterAction = () => {}; // action faites avec la data de retour du formulaire REGISTER
   return (
     <>
-      <AnimatePresence >
-        {TypeForm ? (
-          <FormContainer variants={variantForm} initial="initial" animate="animate" exit="exit">
-            <Form className="AniForm" Fields={LoginField}></Form>
+      <SignLogo src={perro}></SignLogo>
+      {/* block Login */}
+          <FormContainer
+            variants={variantForm}
+            animate={TypeForm ? "show" : "initial"}
+          >
+            <SignTitle>Welcome Back</SignTitle>
+            <Form
+              className="AniForm"
+              Fields={LoginField}
+              Action={LoginAction}
+            ></Form>
           </FormContainer>
-        ) : (
-          <FormContainer variants={variantForm} initial="initial" animate="animate" exit="exit" >
+            {/* block register */}
+          <FormContainer
+            variants={variantForm}
+            animate={TypeForm ? "exit" : "show"}
+          >
+            <SignTitle>Welcome to Animalib</SignTitle>
             <Form className="AniForm" Fields={RegisterField}></Form>
           </FormContainer>
-        )}
-      </AnimatePresence>
+      {/* Switch apparition de l'un ou de l'autre */}
       <StyledButtonSwitch
         onClick={() => {
           setTypeForm(!TypeForm);
@@ -78,18 +49,78 @@ const AniForm = () => {
     </>
   );
 };
+const LoginField = {
+  // Login Fields
+  LEmail: {
+    type: "Email",
+    placeholder: "Email",
+    value: "",
+    required: true,
+  },
+  LPassword: {
+    type: "Password",
+    placeholder: "Password",
+    value: "",
+  },
+  LSubmit: {
+    type: "Submit",
+    value: "Login",
+  },
+};
+const RegisterField = {
+  // Register Fields
+  RFirstName: {
+    type: "text",
+    placeholder: "FirstName",
+    value: "",
+  },
+  RLastName: {
+    type: "text",
+    placeholder: "LastName",
+    value: "",
+  },
+  RPassword: {
+    type: "Password",
+    placeholder: "Password",
+    value: "",
+  },
+  REmail: {
+    type: "Email",
+    placeholder: "Email",
+    value: "",
+    required: true,
+  },
+  RSubmit: {
+    type: "Submit",
+    value: "Register",
+  },
+};
+// Animation d'entrer et sorti du modal
+const transition = { duration: 1, ease: [0.6, 0.01, -0.05, 0.9] };
 const variantForm = {
-    initial : {opacity:0},
-    animate: {opacity:1},
-    exit: { opacity:0,transition:{duration:2000} }
-}
-const FormContainer = styled(motion.div)``;
-const StyledButtonSwitch = styled.span`
-position: absolute;
-bottom: 25%;
-right: 30%;
-color:${(props) => props.theme.colors.third};
+  initial: { x: "100vh", transition },
+  show: { x: 0, transition },
+  exit: { x: "-100vh", transition },
+};
+
+const FormContainer = styled(motion.div)`
+  position: absolute;
+`;
+const SignTitle = styled.h1`
+  margin-bottom: 10%;
+  font-size: 1.5rem;
+`;
+const SignLogo = styled.img`
+  width: 50%;
+  filter: brightness(0.5);
 `;
 
+const StyledButtonSwitch = styled.span`
+  position: absolute;
+  bottom: 25%;
+  right: 30%;
+  color: ${(props) => props.theme.colors.third};
+  cursor: pointer;
+`;
 
 export default AniForm;

@@ -19,6 +19,7 @@ const MotionModal = ({ controller, children ,hidden=["100vh",0,1],show=[0,0,1],d
 
 const StyledModal = styled(StyledTheme)`
 position:absolute;
+overflow:hidden;
 top:0;
 left:0;
 width:fit-content;

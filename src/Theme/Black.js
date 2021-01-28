@@ -3,9 +3,13 @@ const THEME = {
   ...Config,
   mode: "Black",
   colors: {
-    primary: "#171717",
-    secondary: "#ffffff",
-    third: "#ff9800",
+    primary: "#141719",
+    fontprimary: "#262b2e",
+    secondary: "#edf1f9",
+    fontsecondary: "white",
+    third:"#ff9800",
+    success:"#8bc34a",
+    error:"#e91e63"
   },
 };
 

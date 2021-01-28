@@ -1,6 +1,6 @@
 import React from 'react';
 import "./RotateText.scss";
-import {StyledTheme} from "../../StyledComponents";
+import StyledTheme from "../../StyledComponents/StyledTheme";
 import styled from "styled-components";
 const RotateText = ({ text, arc, radius , size="1rem",rotating=true,children,...props})=> {
   const characters = text.split('');

@@ -38,6 +38,8 @@ letter-spacing: ${(props) => (props.letterSpacing ? props.letterSpacing : "")};
 
 opacity: ${(props) => (props.opacity ? props.opacity : "")};
 cursor: ${(props) => (props.cursor ? props.cursor : "")};
+
+
 &:hover {
   color:  ${(props) => (props.hoverfontcolor ? props.theme.colors.primary : "")};
   color: ${(props) => (props.hoverfontcolorinvert ? props.theme.colors.secondary : "")};

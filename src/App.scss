@@ -1,3 +1,8 @@
+
+
+@import '~slick-carousel/slick/slick.css';
+@import '~slick-carousel/slick/slick-theme.css';
+
 @font-face {
   font-family: police;
   src: url(./assets/font/MonumentExtended-Regular.otf);
@@ -6,94 +11,55 @@
   font-family: Jungle;
   src: url(./assets/font/BlackAnimal.otf);
 }
-$breakpoints: (
-  "phone": 425px,
-  "tablet": 768px,
-  "desktop": 1366px,
-  "LGdesktop": 1920px
-) !default;
-
 * {
+  user-select: none;
   font-weight: 100;
   padding: 0;
   margin: 0;
-  font-family: police;  
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;  
 }
-.BIG{
-  font-size: 5em;
-  cursor: pointer;
-  text-transform: uppercase;
-}
-.testSelector{
-  padding-top:128px;
-}
+
 body,html{
+  overflow:hidden;
   background-color: #171717;
 }
-// body::-webkit-scrollbar-track {
-//   background: #1e1e24;
-// }
 
-// body::-webkit-scrollbar-thumb {
-//   background: #6649b8;
-// }
 a {
   text-decoration: none; /* no underline */
 }
 ul{
   list-style-type: none;
 }
-.Black-theme{
-background-color: black;
-color: white;
-}
-
-.White-theme{
-background-color: white;
-color: black;
-}
-.Input{
-padding: 8px;
-}
-.container {
-width: 1560px;
-min-width: 1560px;
-margin: 0 auto;
-height: 100%;
-@media(max-width:1560px) {
-  width: 1280px;
-  min-width: 1280px;
-}
-@media(max-width:1366px) {
-  width: 1080px;
-  min-width: 1080px;
-}
-@media(max-width:1080px) {
-  width: 100%;
-  min-width: 100%;
-}
-.row {
-  display: flex;
-  height: 100%;
-  padding: 0 32px;
-  @media(max-width:425px) {
-    padding: 0 16px;
+.AniForm { // style for the form
+  input {
+    font-size: 14px;
+    padding: 16px 30px 16px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+    width: 70%;
+  }
+  input[type="submit"]{
+    width:50%
   }
 }
-.v-center {
-  align-items: center;
+.slide{
+  pointer-events: all;
+  transform: scale(0.8);
+  transition: all 1000ms ease-in-out;
+  opacity:0.5;
+  outline: none;
 }
-.space-between {
-  justify-content: space-between;
-}
-}
-
-.container-fluid {
-width: 100%;
-height: 100%;
-.row {
-  display: flex;
-  height: 100%;
-}
+.ButtonSlide{
+  transition: all 1000ms ease-in-out;
+  opacity: 0;
 }
 
+.slick-list, .slick-track { touch-action:none; }
+.slick-active.slick-current .slide{
+  transform: scale(1.02);
+  opacity:1
+}
+.slick-active.slick-current .slide .ButtonSlide{
+  opacity:1
+}

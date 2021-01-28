@@ -1,4 +1,4 @@
 import Black from "./Black";
 import White from "./White";
-
-export { Black, White };
+import Gradiant from "./Gradiant";
+export { Black, White ,Gradiant};
