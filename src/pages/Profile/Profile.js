@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import SpanText from "../../components/elements/SpanText";
 import { AiOutlineEdit,AiTwotoneCalendar,AiOutlineReconciliation,AiFillPlusCircle } from "react-icons/ai";
+import ThemeSwitcher from "../../components/ui/ThemeSwitcher/ThemeSwitcher";
 
 const Profile = () => {
   const [indexClicked,setindexClicked] = React.useState(0);
@@ -24,7 +25,8 @@ const Profile = () => {
   };
   return (
     <SliderContainer as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.2}}}>
-      <AnimalItem.UserContainer exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3)+100 : 0}} transition={{duration:1}} onClick={() => Action(-2,("/EditUser/"+fakedata._id))}  >
+     <ThemeSwitcher></ThemeSwitcher>
+      <AnimalItem.UserContainer exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3)+100 : 0}} transition={{duration:1}}  >
         <AnimalItem.UserTitle as={motion.span} size="lg"  >{fakedata.firstname}</AnimalItem.UserTitle>
         <EditUserButton ><AiOutlineEdit></AiOutlineEdit></EditUserButton>
       </AnimalItem.UserContainer>
@@ -79,6 +81,7 @@ const DisconnectTitle = styled(SpanText)`
 top:55px;
 right:70px;
 color:red;
+z-index:2;
 cursor:pointer;
 font-weight:bold;
 opacity:0.7;
