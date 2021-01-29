@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import SpanText from "../../components/elements/SpanText";
 import { AiOutlineEdit,AiTwotoneCalendar,AiOutlineReconciliation,AiFillPlusCircle } from "react-icons/ai";
 import ThemeSwitcher from "../../components/ui/ThemeSwitcher/ThemeSwitcher";
+import StyledTheme from "../../components/StyledComponents/StyledTheme";
 
 const Profile = () => {
   const [indexClicked,setindexClicked] = React.useState(0);
@@ -26,9 +27,11 @@ const Profile = () => {
   return (
     <SliderContainer as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.2}}}>
      <ThemeSwitcher></ThemeSwitcher>
-      <AnimalItem.UserContainer exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3)+100 : 0}} transition={{duration:1}}  >
-        <AnimalItem.UserTitle as={motion.span} size="lg"  >{fakedata.firstname}</AnimalItem.UserTitle>
-        <EditUserButton ><AiOutlineEdit></AiOutlineEdit></EditUserButton>
+      <AnimalItem.UserContainer onClick={()=>Action(-2,("/EditUser/"+fakedata._id))} exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3)+100 : 0}} transition={{duration:1}}  >
+        <StyledTheme flex={true}>
+            <AnimalItem.UserTitle as={motion.span} size="lg"  >{fakedata.firstname}</AnimalItem.UserTitle>
+            <EditUserButton ><AiOutlineEdit></AiOutlineEdit></EditUserButton>
+        </StyledTheme>
       </AnimalItem.UserContainer>
       <DisconnectTitle as={motion.span} size="sm" onClick={()=>{localStorage.clear();Action(null, "/")}} exit={{opacity: 0}} transition={{...transition,duration:0.2}}>Deconnection</DisconnectTitle>
       <Carousel>
@@ -60,16 +63,16 @@ const Profile = () => {
         ))}
          <motion.div
             className="slide"
-            exit={{opacity:0}}
+            exit={{opacity:indexClicked === -1 ? 0.5 : 0}}
             transition={{...transition,duration: indexClicked === -1 ? 1 : 0.2}}
           >
              <AnimalItem.Itemlist>
-                <AddButton ><AiFillPlusCircle  onClick={() => Action(-1,"/")}></AiFillPlusCircle></AddButton>
+                <AnimalItem.AddButton ><AiFillPlusCircle  onClick={() => Action(-1,"/AddAnimal")}></AiFillPlusCircle></AnimalItem.AddButton>
               </AnimalItem.Itemlist>
               <div className="ButtonSlide">
-                <AddTitleContainer>
-                  <AddTitle size="md">Add Animal</AddTitle>
-                </AddTitleContainer>
+                <AnimalItem.AddTitleContainer>
+                  <AnimalItem.AddTitle size="md">Add Animal</AnimalItem.AddTitle>
+                </AnimalItem.AddTitleContainer>
             </div>
           </motion.div>
       </Carousel>
@@ -114,35 +117,7 @@ const EditButton = styled(AnimalItem.ItemButton)`
 top:50px;
 right:85px;
 `;
-const AddButton = styled(AnimalItem.ItemButton)`
-display:flex;
-width: 200px;
-Height: 200px;
-font-size:5rem;
-background:unset;
-border-style: dotted;
-color:${(props) => props.theme.colors.secondary};
-justify-content:center;
-align-items:center;
-&:hover{
-  transform:scale(1);
-}
-`;
-const AddTitleContainer = styled.div`
-width: 100%;
-height: 100%;
-position: absolute;
-top: 0;
-left: 0;
-display: flex;
-justify-content: center;
-align-items: flex-end;
-`;
-const AddTitle = styled(SpanText)`
-text-transform:uppercase;
-opacity:0.2;
-margin-bottom:100px;
-`;
+
 
 const OverViewButton = styled(AnimalItem.ItemButton)`
 bottom:100px;

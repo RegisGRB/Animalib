@@ -54,6 +54,7 @@ const Form = ({
           key={field}
         >
           <StyledInput
+          checked={FormState[field].checked}
             name={FormState[field].name}
             as={FormState[field].as ? FormState[field].as : "input"}
             type={FormState[field].type}
@@ -68,7 +69,6 @@ const Form = ({
             required={FormState[field].required}
             value={FormState[field].value}
             onChange={(e) => {
-           
               SetFormState({
                 ...FormState,
                 [field]: { ...FormState[field], value: e.target.value },
@@ -90,7 +90,7 @@ const Form = ({
           >
            {FormState[field].as === "select"
               ? FormState[field].option.map((element, index) => (
-                  <option value={element} key={helpers.generateKey(index)}>{element}</option>
+                  <option value={element} key={helpers.generateKey(index)} >{element}</option>
                 ))
               : null}
           </StyledInput>

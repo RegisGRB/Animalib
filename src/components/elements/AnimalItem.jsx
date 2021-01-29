@@ -124,4 +124,33 @@ const BackButton = styled(ItemButton)`
     height:40px;
   }
 `;
-export {Itemlist,ItemName,ItemPoids,ItemSterile,ItemPuce,ItemSexe,ItemButton,UserContainer,UserTitle,EditUserButton,BackButton};
+const AddButton = styled(ItemButton)`
+display:flex;
+width: 200px;
+Height: 200px;
+font-size:5rem;
+background:unset;
+border-style: dotted;
+color:${(props) => props.theme.colors.secondary};
+justify-content:center;
+align-items:center;
+&:hover{
+  transform:scale(1);
+}
+`;
+const AddTitleContainer = styled.div`
+width: 100%;
+height: 100%;
+position: absolute;
+top: 0;
+left: 0;
+display: flex;
+justify-content: center;
+align-items: flex-end;
+`;
+const AddTitle = styled(SpanText)`
+text-transform:uppercase;
+opacity:0.2;
+margin-bottom:100px;
+`;
+export {Itemlist,ItemName,ItemPoids,ItemSterile,ItemPuce,ItemSexe,ItemButton,UserContainer,UserTitle,EditUserButton,BackButton,AddButton,AddTitleContainer,AddTitle};

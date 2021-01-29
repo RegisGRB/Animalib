@@ -11,6 +11,35 @@ const EditUser = () => {
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   let history = useHistory();
     const data = fakedata;
+    
+const AnimalFields = {
+  // Login Fields
+  RFirstName: {
+    type: "text",
+    placeholder: "FirstName",
+    value: data.firstname,
+  },
+  RLastName: {
+    type: "text",
+    placeholder: "LastName",
+    value: data.lastname,
+  },
+  RPassword: {
+    type: "Password",
+    placeholder: "Password",
+    value: "",
+  },
+  REmail: {
+    type: "Email",
+    placeholder: "Email",
+    value: data.email,
+    required: true,
+  },
+  ASubmit: {
+    type: "Submit",
+    value: "Submit",
+  },
+};
   return (
 <motion.div>
     <AnimalItem.UserContainer initial={{y:window.innerHeight/3 }} exit={{y: 0,opacity:0.7}} transition={{duration: 0.2}}>
@@ -26,70 +55,10 @@ const EditUser = () => {
         <Form className="AniForm" Fields={AnimalFields}></Form>
       </EditContainer>
       <AnimalItem.BackButton as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} onClick={()=>history.push("/Profile")}><AiOutlineRollback></AiOutlineRollback></AnimalItem.BackButton>
-
 </motion.div>
   );
 };
 
-const AnimalFields = {
-  // Login Fields
-  AName: {
-    type: "Text",
-    placeholder: "Name",
-    value: "",
-    required: true,
-  },
-  ASelect: {
-    name: "Sexe",
-    as: "select",
-    value: "",
-    option:["Male","Female"],
-    required:true
-  },
-
-  ARace: {
-    type: "Text",
-    placeholder: "Race",
-    value: "",
-    required: false,
-  },
-  ADob: {
-    type: "date",
-    value: "",
-    required: false,
-  },
-
-  Acolor: {
-    type: "Text",
-    placeholder: "Color",
-    value: "",
-    required: false,
-  },
-  APoids: {
-    type: "Number",
-    placeholder: "Poids kg",
-    value: "",
-    required: false,
-  },
-  ASterile: {
-    checked:false,
-    type: "Checkbox",
-    placeholder: "sterile",
-    label:"Sterile",
-    value: "",
-    required: false,
-  },
-  APuce_id: {
-    type: "Text",
-    placeholder: "Puce ID",
-    value: "",
-    required: false,
-  },
-  ASubmit: {
-    type: "Submit",
-    value: "Submit",
-  },
-};
 const EditContainer = styled(motion.div)`
   width: 100%;
   height: 100vh;

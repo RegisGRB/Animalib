@@ -1,29 +1,28 @@
 import React from "react";
-import AnimalPlate from "../../components/elements/AnimalPlate";
 import * as AnimalItem from "../../components/elements/AnimalItem";
+import { AiFillPlusCircle,AiOutlineRollback } from "react-icons/ai";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
-import { CgCloseO } from "react-icons/cg";
-import MotionModal from "../../components/Motion/MotionModal";
-const Edit = () => {
+import { useHistory } from "react-router-dom";
+const AddAnimal = () => {
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
-  const [DeleteModal, setDeleteModal] = React.useState(false);
   const data = fakedata.animal.filter((x) => x.id === id)[0];
+  let history = useHistory();
   const AnimalFields = {
     // Login Fields
     AName: {
       type: "Text",
       placeholder: "Name",
-      value: data.name,
+      value: "",
       required: true,
     },
     ASelect: {
       name: "Sexe",
       as: "select",
-      value: data.sex,
+      value: "",
       option: ["Male", "Female"],
       required: true,
     },
@@ -31,29 +30,29 @@ const Edit = () => {
     ARace: {
       type: "Text",
       placeholder: "Race",
-      value: data.race,
+      value: "",
       required: false,
     },
     ADob: {
       type: "date",
-      value: data.dob,
+      value: "",
       required: false,
     },
 
     Acolor: {
       type: "Text",
       placeholder: "Color",
-      value: data.color,
+      value: "",
       required: false,
     },
     APoids: {
       type: "Number",
       placeholder: "Poids kg",
-      value: data.poids,
+      value: "",
       required: false,
     },
     ASterile: {
-      checked: data.sterile,
+      checked: false,
       type: "Checkbox",
       placeholder: "sterile",
       label: "Sterile",
@@ -63,7 +62,7 @@ const Edit = () => {
     APuce_id: {
       type: "Text",
       placeholder: "Puce ID",
-      value: data.puce_id,
+      value: "",
       required: false,
     },
     ASubmit: {
@@ -73,7 +72,25 @@ const Edit = () => {
   };
   return (
     // animalPlate affichant l'animal de base tel la fin de l'animation de profile puis fait une animation en fonction de variants definie ci-dessous
-    <AnimalPlate transition={transition} variants={variants} data={data}>
+    <>
+      <motion.div
+        className=""
+        exit={{ opacity: 0 }}
+        transition={{ ...transition, duration:  1 }}
+      >
+        <AddContainer>
+          <AnimalItem.AddButton>
+            <AiFillPlusCircle
+              onClick={() => {}}
+            ></AiFillPlusCircle>
+          </AnimalItem.AddButton>
+        </AddContainer>
+        <div className="ButtonSlide">
+          <AnimalItem.AddTitleContainer>
+            <AnimalItem.AddTitle size="md">Add Animal</AnimalItem.AddTitle>
+          </AnimalItem.AddTitleContainer>
+        </div>
+      </motion.div>
       {/*element des différentes intervention de l'animal  */}
       <EditContainer
         initial="initialliItem"
@@ -83,34 +100,14 @@ const Edit = () => {
       >
         <Form className="AniForm" Fields={AnimalFields}></Form>
       </EditContainer>
-      <DeleteAnimalButton onClick={() => setDeleteModal(true)}>
-        <CgCloseO></CgCloseO>
-      </DeleteAnimalButton>
-      <MotionModal controller={DeleteModal} hidden={[0, 0, 0]} show={[0, 0, 1]}>
-        <SurDeleteModal></SurDeleteModal>
-      </MotionModal>
-    </AnimalPlate>
+      <AnimalItem.BackButton as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} onClick={()=>history.push("/Profile")}><AiOutlineRollback></AiOutlineRollback></AnimalItem.BackButton>
+
+    </>
   );
 };
-const SurDeleteModal = styled(motion.div)`
-width:400px;
-height:400px;
-background:red;
-height
-`;
-const DeleteAnimalButton = styled(AnimalItem.BackButton)`
-  left: unset;
-  right: 40px;
-  &:hover {
-    transform: scale(1);
-    color: red;
-  }
-  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
-    left: 20px;
-    right: unset;
-    width: 40px;
-    height: 40px;
-  }
+const AddContainer = styled(AnimalItem.Itemlist)`
+margin:10vh 0;
+opacity:0.7;
 `;
 const EditContainer = styled(motion.div)`
   width: 100%;
@@ -178,4 +175,4 @@ const variants = {
   },
 };
 
-export default Edit;
+export default AddAnimal;

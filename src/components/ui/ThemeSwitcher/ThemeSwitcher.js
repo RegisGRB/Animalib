@@ -32,6 +32,10 @@ const ThemeSwitchContainer = styled(motion.div)`
   align-items: center;
   justify-content: center;
   @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    top: unset;
+    left: unset;
+    right:25px;
+    bottom:4vh;
   }
   pointer-events: all;
   transition: all 0.6s ease-out;
