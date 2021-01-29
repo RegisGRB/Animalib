@@ -7,12 +7,12 @@ import { useSize } from "../../Hooks";
 import { ThemeContext } from "../../context";
 import { AiOutlineRollback } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
-const AnimalPlate = ({variants,transition,datax,children}) => {
+const AnimalPlate = ({variants,transition,data,children}) => {
   const screenWidth = useSize().width;
   const ThemeContextx = React.useContext(ThemeContext);
   let history = useHistory();
  // en fonction de la width de l'ecran fait l'animation associé a l'élément
-  const [data, setData] = React.useState(datax);
+
   React.useEffect(() => {
   }, [screenWidth]);
 
@@ -77,7 +77,7 @@ const AnimalPlate = ({variants,transition,datax,children}) => {
         </AnimalItem.ItemPoids>
       </Itemlist>
       {children}
-      <BackButton as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} onClick={()=>history.push("/Profile")}><AiOutlineRollback></AiOutlineRollback></BackButton>
+      <AnimalItem.BackButton as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} onClick={()=>history.push("/Profile")}><AiOutlineRollback></AiOutlineRollback></AnimalItem.BackButton>
     </MotionContainer>
   );
 };
@@ -87,21 +87,7 @@ const MotionContainer = styled(motion.div)`
   width: 100%;
   position: relative;
 `;
-const BackButton = styled(AnimalItem.ItemButton)`
-  top:40px;
-  left:40px;
-  width:70px;
-  height:70px;
-  font-size:1.5rem;
-  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
-    top:unset;
-    left:unset;
-    bottom:10px;
-    right:20px;
-    width:40px;
-    height:40px;
-  }
-`;
+
 const Itemlist = styled.div`
   pointer-events: none;
   position: relative;

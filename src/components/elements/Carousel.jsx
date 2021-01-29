@@ -10,8 +10,8 @@ const Carousel = ({ children }) => {
   const list = React.useRef(null);
 
   React.useEffect(() => {
-    if (screenWidth >= ThemeContextx.breakpointsValue.md) MouseScreen();
-  }, [screenWidth]);
+    if (screenWidth >= ThemeContextx.breakpoints.md) MouseScreen();
+  }, [screenWidth,ThemeContextx]);
 
   const MouseScreen = () => {
     list.current.addEventListener("mousedown", () => {
@@ -46,7 +46,7 @@ const settings = {
   swipeToSlide: true,
   slidesToShow: 3,
   initialSlide: 0,
-  easing:"[0.6,0.01,-0.05,0.9]",
+
   responsive: [
     {
       breakpoint: 768,

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { AiOutlineArrowLeft, AiOutlineClose } from "react-icons/ai";
+
 import { BsArrowLeft} from "react-icons/bs";
 import MotionModal from '../Motion/MotionModal';
 import AniForm from "./AniForm";

@@ -1,5 +1,5 @@
 import React from "react";
-import StyledTheme from "../../StyledComponents/StyledTheme";
+
 import styled from "styled-components";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
@@ -40,9 +40,9 @@ const Form = ({
         console.log(err);
       });
   };
-React.useEffect(()=>{
-  SetFormState(Fields);
-},[Fields])
+  React.useEffect(() => {
+    SetFormState(Fields);
+  }, [Fields]);
   const FormGenerator = () => {
     const elements = [];
     for (let field in FormState) {
@@ -54,7 +54,6 @@ React.useEffect(()=>{
           key={field}
         >
           <StyledInput
-            checked={FormState[field].checked}
             name={FormState[field].name}
             as={FormState[field].as ? FormState[field].as : "input"}
             type={FormState[field].type}
@@ -69,18 +68,32 @@ React.useEffect(()=>{
             required={FormState[field].required}
             value={FormState[field].value}
             onChange={(e) => {
+           
               SetFormState({
                 ...FormState,
                 [field]: { ...FormState[field], value: e.target.value },
               });
-              if(FormState[field].Change)
-              FormState[field].Change(FormState[field].value);
+              if (FormState[field].Change)
+                FormState[field].Change(FormState[field].value);
+
+                if (FormState[field].type==="Checkbox")
+                SetFormState({
+                  ...FormState,
+                  [field]: { ...FormState[field], checked: e.target.checked },
+                });
             }}
+            
             onClick={(e) => {
-              if(FormState[field].click)
-              FormState[field].click(FormState[field].value);
+              if (FormState[field].click)
+                FormState[field].click(FormState[field].value);
             }}
-          ></StyledInput>
+          >
+           {FormState[field].as === "select"
+              ? FormState[field].option.map((element, index) => (
+                  <option value={element} key={helpers.generateKey(index)}>{element}</option>
+                ))
+              : null}
+          </StyledInput>
           {FormState[field].label ? (
             <label htmlFor={field}>{FormState[field].label}</label>
           ) : (
@@ -98,7 +111,6 @@ React.useEffect(()=>{
   );
 };
 const StyledForm = styled.form``;
-// const StyledInput = styled(StyledTheme)``;
 
 export default Form;
 // fields exemple
@@ -132,19 +144,10 @@ export default Form;
 //         placeholder: "",
 //         value:""
 //       },
-//       Radio:{
-//         checked:true,
-//         name:"GRB",
-//         label: "Radio",
-//         type: "Radio",
-//         placeholder: "",
-//         value:""
-//       },
-//       Radio1:{
-//         name:"GRB",
-//         label: "Radio",
-//         type: "Radio",
-//         placeholder: "",
-//         value:""
-//       },
-//     };
+// ASelect: {
+//   name: "Sexe",
+//   label: "Sexe",
+//   as: "select",
+//   value: "",
+//   option:["Male","Female"]
+// },

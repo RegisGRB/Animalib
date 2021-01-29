@@ -1,13 +1,9 @@
 import React from "react";
 import AnimalPlate from "../../components/elements/AnimalPlate";
-import { GiMedicalThermometer, GiMedicines } from "react-icons/gi";
-import { FaFileMedicalAlt } from "react-icons/fa";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import SpanText from "../../components/elements/SpanText";
 import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
-import { helpers } from "../../utils";
 import Form from "../../components/ui/Form/Form";
 
 const Edit = () => {
@@ -18,7 +14,7 @@ const Edit = () => {
     <AnimalPlate
       transition={transition}
       variants={variants}
-      datax={fakedata.animal.filter((x) => x.id === id)[0]}
+      data={fakedata.animal.filter((x) => x.id === id)[0]}
     >
       {/*element des différentes intervention de l'animal  */}
       <EditContainer
@@ -27,22 +23,12 @@ const Edit = () => {
         exit="liItemexit"
         variants={variants}
       >
-        <Form Fields={AnimalFields}></Form>
+        <Form className="AniForm" Fields={AnimalFields}></Form>
       </EditContainer>
     </AnimalPlate>
   );
 };
-/*
-name: "raki",
-        sex: "M",
-        type: "bird",
-        race: "silver tabby",
-        dob: "02/02/2020",
-        color: "gris",
-        poids: "20kg",
-        sterile: false,
-        puce_id: "12345",
-*/
+
 const AnimalFields = {
   // Login Fields
   AName: {
@@ -51,19 +37,14 @@ const AnimalFields = {
     value: "",
     required: true,
   },
-  ARadioSexe: {
-    checked: true,
+  ASelect: {
     name: "Sexe",
-    label: "Male",
-    type: "Radio",
-    value: "Male",
+    as: "select",
+    value: "",
+    option:["Male","Female"],
+    required:true
   },
-  ARadioSexe1: {
-    name: "Sexe",
-    label: "Female",
-    type: "Radio",
-    value: "Female",
-  },
+
   ARace: {
     type: "Text",
     placeholder: "Race",
@@ -75,11 +56,7 @@ const AnimalFields = {
     value: "",
     required: false,
   },
-  ADob: {
-    type: "date",
-    value: "",
-    required: false,
-  },
+
   Acolor: {
     type: "Text",
     placeholder: "Color",
@@ -92,7 +69,8 @@ const AnimalFields = {
     value: "",
     required: false,
   },
-  ACheckBox: {
+  ASterile: {
+    checked:false,
     type: "Checkbox",
     placeholder: "sterile",
     label:"Sterile",
@@ -107,7 +85,7 @@ const AnimalFields = {
   },
   ASubmit: {
     type: "Submit",
-    value: "Login",
+    value: "Submit",
   },
 };
 const EditContainer = styled(motion.div)`
