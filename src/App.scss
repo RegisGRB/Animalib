@@ -32,6 +32,9 @@ ul{
 }
 .AniForm { // style for the form
   width: 400px;
+  @media (max-width: 768px) {
+    width:100%;
+    }
   .inputFields{
     width: 100%;
     display: flex;

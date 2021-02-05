@@ -7,7 +7,9 @@ import { useSize } from "../../Hooks";
 import { ThemeContext } from "../../context";
 import { AiOutlineRollback } from "react-icons/ai";
 import { useHistory } from "react-router-dom";
+import {LangContext} from "../../context";
 const AnimalPlate = ({variants,transition,data,children}) => {
+  const LangContextx = React.useContext(LangContext);
   const screenWidth = useSize().width;
   const ThemeContextx = React.useContext(ThemeContext);
   let history = useHistory();
@@ -49,7 +51,7 @@ const AnimalPlate = ({variants,transition,data,children}) => {
           animate={screenWidth <= ThemeContextx.breakpointsValue.md ? "MobileanimateSexe" : "animateSexe"}
           size="sm"
         >
-          Sexe: {data.sex}
+          {LangContextx.Sex}: {data.sex}
         </AnimalItem.ItemSexe>
         <AnimalItem.ItemPuce
           as={motion.span}
@@ -57,7 +59,7 @@ const AnimalPlate = ({variants,transition,data,children}) => {
           animate={screenWidth <= ThemeContextx.breakpointsValue.md ? "MobileanimatePuce" : "animatePuce"}
           size="sm"
         >
-          Puce: {data.puce_id}
+          {LangContextx.Chip}: {data.puce_id}
         </AnimalItem.ItemPuce>
         <AnimalItem.ItemSterile
           as={motion.span}
@@ -65,7 +67,7 @@ const AnimalPlate = ({variants,transition,data,children}) => {
           animate={screenWidth <= ThemeContextx.breakpointsValue.md ? "MobileanimateSterile" : "animateSterile"}
           size="sm"
         >
-          Sterile: {data.sterile.toString()}
+          {LangContextx.Sterile}: {data.sterile.toString()}
         </AnimalItem.ItemSterile>
         <AnimalItem.ItemPoids
           as={motion.span}
@@ -73,7 +75,7 @@ const AnimalPlate = ({variants,transition,data,children}) => {
           animate={screenWidth <= ThemeContextx.breakpointsValue.md ? "MobileanimatePoids" : "animatePoids"}
           size="sm"
         >
-         Poids: {data.poids}
+         {LangContextx.Weight}: {data.poids}
         </AnimalItem.ItemPoids>
       </Itemlist>
       {children}

@@ -7,7 +7,11 @@ import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import * as AnimalItem from "../../components/elements/AnimalItem";
 import { useHistory } from "react-router-dom";
+import {LangContext} from "../../context";
+import ThemeSwitcher from "../../components/ui/ThemeSwitcher/ThemeSwitcher";
+import LangSwitcher from "../../components/ui/LangSwitcher/LangSwitcher";
 const EditUser = () => {
+  const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   let history = useHistory();
     const data = fakedata;
@@ -16,28 +20,28 @@ const AnimalFields = {
   // Login Fields
   RFirstName: {
     type: "text",
-    placeholder: "FirstName",
+    placeholder: LangContextx.FirstName,
     value: data.firstname,
   },
   RLastName: {
     type: "text",
-    placeholder: "LastName",
+    placeholder: LangContextx.LastName,
     value: data.lastname,
   },
   RPassword: {
     type: "Password",
-    placeholder: "Password",
+    placeholder: LangContextx.Password,
     value: "",
   },
   REmail: {
     type: "Email",
-    placeholder: "Email",
+    placeholder: LangContextx.Email,
     value: data.email,
     required: true,
   },
   ASubmit: {
     type: "Submit",
-    value: "Submit",
+    value: LangContextx.Submit,
   },
 };
   return (
@@ -53,6 +57,10 @@ const AnimalFields = {
         variants={variants}
       >
         <Form className="AniForm" Fields={AnimalFields}></Form>
+        <motion.div as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}}>
+            <LangSwitcher></LangSwitcher>
+            <ThemeSwitcher></ThemeSwitcher>
+        </motion.div>
       </EditContainer>
       <AnimalItem.BackButton as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} onClick={()=>history.push("/Profile")}><AiOutlineRollback></AiOutlineRollback></AnimalItem.BackButton>
 </motion.div>

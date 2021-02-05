@@ -6,9 +6,14 @@ import { motion } from "framer-motion";
 import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
-import { CgCloseO } from "react-icons/cg";
+import { CgCloseO, CgCheckO } from "react-icons/cg";
 import MotionModal from "../../components/Motion/MotionModal";
+import { LangContext } from "../../context";
+import SpanText from "../../components/elements/SpanText";
+import { useHistory } from "react-router-dom";
 const Edit = () => {
+  let history = useHistory();
+  const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   const [DeleteModal, setDeleteModal] = React.useState(false);
   const data = fakedata.animal.filter((x) => x.id === id)[0];
@@ -16,7 +21,7 @@ const Edit = () => {
     // Login Fields
     AName: {
       type: "Text",
-      placeholder: "Name",
+      placeholder: LangContextx.Name,
       value: data.name,
       required: true,
     },
@@ -30,7 +35,7 @@ const Edit = () => {
 
     ARace: {
       type: "Text",
-      placeholder: "Race",
+      placeholder: LangContextx.Race,
       value: data.race,
       required: false,
     },
@@ -42,35 +47,39 @@ const Edit = () => {
 
     Acolor: {
       type: "Text",
-      placeholder: "Color",
+      placeholder: LangContextx.Color,
       value: data.color,
       required: false,
     },
     APoids: {
       type: "Number",
-      placeholder: "Poids kg",
+      placeholder: LangContextx.Weight,
       value: data.poids,
       required: false,
     },
     ASterile: {
       checked: data.sterile,
       type: "Checkbox",
-      placeholder: "sterile",
-      label: "Sterile",
+      placeholder: LangContextx.Sterile,
+      label: LangContextx.Sterile,
       value: "",
       required: false,
     },
     APuce_id: {
       type: "Text",
-      placeholder: "Puce ID",
+      placeholder: LangContextx.Chip,
       value: data.puce_id,
       required: false,
     },
     ASubmit: {
       type: "Submit",
-      value: "Submit",
+      value: LangContextx.Submit,
     },
   };
+
+  const DeleteAnimal = () =>{
+    alert("DELETE"+data.id);
+  }
   return (
     // animalPlate affichant l'animal de base tel la fin de l'animation de profile puis fait une animation en fonction de variants definie ci-dessous
     <AnimalPlate transition={transition} variants={variants} data={data}>
@@ -83,20 +92,67 @@ const Edit = () => {
       >
         <Form className="AniForm" Fields={AnimalFields}></Form>
       </EditContainer>
-      <DeleteAnimalButton onClick={() => setDeleteModal(true)}>
+      <DeleteAnimalButton onClick={() => setDeleteModal(true)} as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} >
         <CgCloseO></CgCloseO>
       </DeleteAnimalButton>
       <MotionModal controller={DeleteModal} hidden={[0, 0, 0]} show={[0, 0, 1]}>
-        <SurDeleteModal></SurDeleteModal>
+        <DeleteContainer >
+          <SurDeleteModal>
+            <TitleDelete size="lg">
+              {LangContextx.Delete} {data.name}
+            </TitleDelete>
+            <PreventButtonContainer>
+              <PreventDeleteButton onClick={() => DeleteAnimal()}>
+                <CgCheckO></CgCheckO>
+              </PreventDeleteButton>
+              <PreventDeleteButton onClick={() => setDeleteModal(false)}>
+                <CgCloseO></CgCloseO>
+              </PreventDeleteButton>
+            </PreventButtonContainer>
+          </SurDeleteModal>
+        </DeleteContainer>
       </MotionModal>
     </AnimalPlate>
   );
 };
 const SurDeleteModal = styled(motion.div)`
-width:400px;
-height:400px;
-background:red;
-height
+  width: 50vw;
+  height: 40vh;
+  background: ${(props) => props.theme.colors.primary};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position:relative;
+  border-radius:10px;
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    width: 90vw;
+    height: 60vh;
+  }
+
+`;
+const TitleDelete = styled(SpanText)`
+margin-bottom:50px;
+text-align:center;
+`;
+const PreventButtonContainer = styled(motion.div)`
+width:100%;
+  display: flex;
+  justify-content: space-around;
+`;
+const PreventDeleteButton = styled(AnimalItem.BackButton)`
+  left: unset;
+  right: unset;
+  top: unset;
+  position: unset;
+  &:hover {
+    transform: scale(1.1);
+    color: unset;
+  }
+  @media (max-width: ${(props) => props.theme.breakpoints.md}) {
+    width: 40px;
+    height: 40px;
+  }
 `;
 const DeleteAnimalButton = styled(AnimalItem.BackButton)`
   left: unset;
@@ -113,7 +169,7 @@ const DeleteAnimalButton = styled(AnimalItem.BackButton)`
   }
 `;
 const EditContainer = styled(motion.div)`
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   position: absolute;
   top: 0;
@@ -124,7 +180,7 @@ const EditContainer = styled(motion.div)`
   justify-content: center;
   align-items: center;
   @media (max-width: ${(props) => props.theme.breakpoints.md}) {
-    width: 90%;
+    width: 90vw;
     height: 65vh;
     bottom: 0;
     top: unset;
@@ -136,7 +192,19 @@ const EditContainer = styled(motion.div)`
     }
   }
 `;
-
+const DeleteContainer = styled(EditContainer)`
+@media (max-width: ${(props) => props.theme.breakpoints.md}) {
+  width: 100vw;
+  height:100vh;
+  left: 0;
+  top: 0;
+  margin: 0 0;
+  &::-webkit-scrollbar {
+    width: 0px;
+  }
+}
+  background: rgba(0, 0, 0, 0.5);
+`;
 // animation animalplate
 const transition = {
   delay: 0.6,

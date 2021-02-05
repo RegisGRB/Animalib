@@ -2,14 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import AniFormModal from "../../components/AniForm/AniFormModal";
 import { motion } from "framer-motion";
+import {LangContext} from "../../context";
+import LangSwitcher from "../../components/ui/LangSwitcher/LangSwitcher";
 const Sign = () => {
   const [LoginOn, setLoginOn] = React.useState(false);
   // after login AniForm return to page Profile
+
+  const LangContextx = React.useContext(LangContext);
   return (
     <SignContainer
       exit={{ opacity: 0 }}
       transition={{ ease: [0.43, 0.13, -0.23, 0.9], duration: 0.6 }}
     >
+      <LangSwitcher></LangSwitcher>
       {/* SIGN MODAL */}
       <AniFormModal
         controller={LoginOn}
@@ -19,23 +24,19 @@ const Sign = () => {
       {/* Explication animalib */}
       <SignContainerInfo>
         <ContainerInfo>
-          <InfoTitle>Animalib</InfoTitle>
+          <InfoTitle>  {LangContextx.Title}</InfoTitle>
           <div>
             <InfoAbout>
-              L’application Animalib est une application qui permet d’effectuer
-              un suivi complet de son animal de compagnie, comme un carnet de
-              santé dématérialisé, il permet un suivi de sa nutrition, de sa
-              santé à travers l’espace vétérinaire et d’avoir une carte
-              d’identité de son animal
+             {LangContextx.SignAbout}
             </InfoAbout>
           </div>
           <LoginInfoUser>
             <InfoLogin>
-              Welcome Please{" "}
+            {LangContextx.SignTextLogin1}{" "}
               <InfoLoginSpan onClick={() => setLoginOn(!LoginOn)}>
-                Login
+                {LangContextx.SignLogin}
               </InfoLoginSpan>{" "}
-              to your account{" "}
+              {LangContextx.SignTextLogin2}{" "}
             </InfoLogin>
           </LoginInfoUser>
         </ContainerInfo>

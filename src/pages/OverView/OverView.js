@@ -8,8 +8,9 @@ import SpanText from "../../components/elements/SpanText";
 import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import { helpers } from "../../utils";
-
+import {LangContext} from "../../context";
 const OverView = () => {
+  const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
 
   return (
@@ -28,7 +29,7 @@ const OverView = () => {
       >
         <SearchContainer>
           {/* <SearchInput></SearchInput> */}
-          <Results>{intervention.length} Results</Results>
+          <Results>{intervention.length} {LangContextx.Results}</Results>
         </SearchContainer>
         <ListItem>
           {intervention.map((element, index) => (

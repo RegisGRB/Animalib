@@ -75,7 +75,7 @@ const Router = () => {
     },
     {
       // AnimalPlate Edit de l'animal
-      path: "/Calendar/:id",
+      path: "/Calendar",
       component: Pages.Calendar,
       protectedRoute: true,
       nav: {
@@ -93,7 +93,7 @@ const Router = () => {
           <>
             {/* <NavBar routes={routes} location={location}></NavBar> */}
             {/* Si besoin de navbar dynamic web et mobile*/}
-            <AnimatePresence initial={false} exitBeforeEnter>
+            <AnimatePresence initial={false} exitBeforeEnter={true}>
               <Switch location={location} key={location.pathname}>
                 {routes.map((route) =>
                   route.protectedRoute === true &&

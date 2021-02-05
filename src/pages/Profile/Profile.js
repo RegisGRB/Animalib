@@ -9,10 +9,11 @@ import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import SpanText from "../../components/elements/SpanText";
 import { AiOutlineEdit,AiTwotoneCalendar,AiOutlineReconciliation,AiFillPlusCircle } from "react-icons/ai";
-import ThemeSwitcher from "../../components/ui/ThemeSwitcher/ThemeSwitcher";
-import StyledTheme from "../../components/StyledComponents/StyledTheme";
 
+import StyledTheme from "../../components/StyledComponents/StyledTheme";
+import {LangContext} from "../../context";
 const Profile = () => {
+  const LangContextx = React.useContext(LangContext);
   const [indexClicked,setindexClicked] = React.useState(0);
 // -2 EditUser animation
 // -1 AddAnimal animation
@@ -25,53 +26,51 @@ const Profile = () => {
       history.push(redirect);
   };
   return (
-    <SliderContainer as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.2}}}>
-     <ThemeSwitcher></ThemeSwitcher>
-      <AnimalItem.UserContainer onClick={()=>Action(-2,("/EditUser/"+fakedata._id))} exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3)+100 : 0}} transition={{duration:1}}  >
+    <SliderContainer as={motion.div} initial={{opacity:0}} animate={{opacity:1,duration:0.2}}>
+      <AnimalItem.UserContainer onClick={()=>Action(-2,("/EditUser/"+fakedata._id))} exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3) : 0,duration:1}}  >
         <StyledTheme flex={true}>
             <AnimalItem.UserTitle as={motion.span} size="lg"  >{fakedata.firstname}</AnimalItem.UserTitle>
             <EditUserButton ><AiOutlineEdit></AiOutlineEdit></EditUserButton>
         </StyledTheme>
       </AnimalItem.UserContainer>
-      <DisconnectTitle as={motion.span} size="sm" onClick={()=>{localStorage.clear();Action(null, "/")}} exit={{opacity: 0}} transition={{...transition,duration:0.2}}>Deconnection</DisconnectTitle>
+      <CalendarButton onClick={()=>Action(-2,("/Calendar"))}><AiTwotoneCalendar></AiTwotoneCalendar></CalendarButton>
+      <DisconnectTitle as={motion.span} size="sm" onClick={()=>{localStorage.clear();Action(null, "/")}} exit={{opacity: 0,...transition,duration:0.2}}>{LangContextx.LogOut}</DisconnectTitle>
       <Carousel>
         {fakedata.animal.map((animal, index) => (  
           <motion.div
             className="slide"
-            key={helpers.generateKey(index)}
-            exit={{opacity:indexClicked === index ? 1 : 0}}
-            transition={{...transition,duration:indexClicked === index ? 1 : 0.2}}
+            key={index+animal.id}
+            exit={{opacity:indexClicked === index ? 1 : 0,...transition,duration:indexClicked === index ? 1 : 0.2}}
           >
              {/* Button utilisé pour navigué entre les différents page d'un animal Edit OverView Calendar*/}
             <div className="ButtonSlide">
-              <motion.div exit={{opacity: 0}} transition={{...transition,duration:0.2}}>
+              <motion.div exit={{opacity: 0,...transition,duration:1.2}}>
                 <EditButton onClick={() => Action(index, ("/EditAnimal/" + animal.id))}><AiOutlineEdit></AiOutlineEdit></EditButton>
-                <CalendarButton onClick={() => Action(index, ("/Calendar/" + animal.id))}><AiTwotoneCalendar></AiTwotoneCalendar></CalendarButton>
-                <OverViewButton onClick={() => Action(index, ("/OverView/" + animal.id))}><AiOutlineReconciliation></AiOutlineReconciliation></OverViewButton>
+              
+                {/*<OverViewButton onClick={() => Action(index, ("/OverView/" + animal.id))}><AiOutlineReconciliation></AiOutlineReconciliation></OverViewButton> */}
               </motion.div>
             </div>
             {/* AnimalItem groupe de styled component utilisé pour les différentes pages et transition pour une form homogene */}
             <AnimalItem.Itemlist>
               <ProfileAnimal type={animal.type}></ProfileAnimal>
               <AnimalItem.ItemName size="md">{animal.name}</AnimalItem.ItemName>
-              <AnimalItem.ItemSexe size="sm">Sexe: {animal.sex}</AnimalItem.ItemSexe>
-              <AnimalItem.ItemPuce size="sm">Puce: {animal.puce_id}</AnimalItem.ItemPuce>
-              <AnimalItem.ItemSterile size="sm">Sterile: {animal.sterile.toString()}</AnimalItem.ItemSterile>
-              <AnimalItem.ItemPoids size="sm" >Poids: {animal.poids}</AnimalItem.ItemPoids>
+              <AnimalItem.ItemSexe size="sm">{LangContextx.Sex}: {animal.sex}</AnimalItem.ItemSexe>
+              <AnimalItem.ItemPuce size="sm">{LangContextx.Chip}: {animal.puce_id}</AnimalItem.ItemPuce>
+              <AnimalItem.ItemSterile size="sm">{LangContextx.Sterile}: {animal.sterile.toString()}</AnimalItem.ItemSterile>
+              <AnimalItem.ItemPoids size="sm" >{LangContextx.Weight}: {animal.poids}</AnimalItem.ItemPoids>
             </AnimalItem.Itemlist>
           </motion.div>
         ))}
          <motion.div
             className="slide"
-            exit={{opacity:indexClicked === -1 ? 0.5 : 0}}
-            transition={{...transition,duration: indexClicked === -1 ? 1 : 0.2}}
+            exit={{opacity:indexClicked === -1 ? 0.5 : 0,...transition,duration: indexClicked === -1 ? 1 : 0.2}}
           >
              <AnimalItem.Itemlist>
                 <AnimalItem.AddButton ><AiFillPlusCircle  onClick={() => Action(-1,"/AddAnimal")}></AiFillPlusCircle></AnimalItem.AddButton>
               </AnimalItem.Itemlist>
               <div className="ButtonSlide">
                 <AnimalItem.AddTitleContainer>
-                  <AnimalItem.AddTitle size="md">Add Animal</AnimalItem.AddTitle>
+                  <AnimalItem.AddTitle size="md">{LangContextx.AddAnimal}</AnimalItem.AddTitle>
                 </AnimalItem.AddTitleContainer>
             </div>
           </motion.div>
@@ -82,7 +81,7 @@ const Profile = () => {
 
 const DisconnectTitle = styled(SpanText)`
 top:55px;
-right:70px;
+left:70px;
 color:red;
 z-index:2;
 cursor:pointer;
@@ -110,8 +109,18 @@ const EditUserButton = styled(AnimalItem.EditUserButton)`
   }
 `;
 const CalendarButton = styled(AnimalItem.ItemButton)`
-bottom:100px;
-left:85px;
+right: 70px;
+top: 10px;
+width: 70px;
+height: 70px;
+font-size: 1.5rem;
+@media (max-width: ${(props) => props.theme.breakpoints.md}) {
+  top: unset;
+  bottom:20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+}
 `;
 const EditButton = styled(AnimalItem.ItemButton)`
 top:50px;

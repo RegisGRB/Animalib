@@ -7,7 +7,9 @@ import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import { useHistory } from "react-router-dom";
+import {LangContext} from "../../context";
 const AddAnimal = () => {
+  const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   const data = fakedata.animal.filter((x) => x.id === id)[0];
   let history = useHistory();
@@ -15,7 +17,7 @@ const AddAnimal = () => {
     // Login Fields
     AName: {
       type: "Text",
-      placeholder: "Name",
+      placeholder: LangContextx.Name,
       value: "",
       required: true,
     },
@@ -29,7 +31,7 @@ const AddAnimal = () => {
 
     ARace: {
       type: "Text",
-      placeholder: "Race",
+      placeholder: LangContextx.Race,
       value: "",
       required: false,
     },
@@ -41,33 +43,33 @@ const AddAnimal = () => {
 
     Acolor: {
       type: "Text",
-      placeholder: "Color",
+      placeholder: LangContextx.Color,
       value: "",
       required: false,
     },
     APoids: {
       type: "Number",
-      placeholder: "Poids kg",
+      placeholder: LangContextx.Weight,
       value: "",
       required: false,
     },
     ASterile: {
       checked: false,
       type: "Checkbox",
-      placeholder: "sterile",
+      placeholder: LangContextx.Sterile,
       label: "Sterile",
       value: "",
       required: false,
     },
     APuce_id: {
       type: "Text",
-      placeholder: "Puce ID",
+      placeholder: LangContextx.Chip,
       value: "",
       required: false,
     },
     ASubmit: {
       type: "Submit",
-      value: "Submit",
+      value: LangContextx.Submit,
     },
   };
   return (

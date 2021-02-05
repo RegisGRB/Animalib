@@ -4,7 +4,9 @@ import Form from "../../components/ui/Form/Form";
 import styled from "styled-components";
 import perro from "../../assets/icon/Animal Solid/PNG/240 x 240/toucan, beak, parrot.png";
 import { useHistory } from "react-router-dom";
+import {LangContext} from "../../context";
 const AniForm = () => {
+  const LangContextx = React.useContext(LangContext);
   let history = useHistory();
   const [TypeForm, setTypeForm] = React.useState(true); // type form true login false register
 
@@ -23,7 +25,7 @@ const AniForm = () => {
             variants={variantForm}
             animate={TypeForm ? "show" : "initial"}
           >
-            <SignTitle>Welcome Back</SignTitle>
+            <SignTitle>{LangContextx.SignAniFormLoginTitle}</SignTitle>
             <Form
               className="AniForm"
               Fields={LoginField}
@@ -35,8 +37,8 @@ const AniForm = () => {
             variants={variantForm}
             animate={TypeForm ? "exit" : "show"}
           >
-            <SignTitle>Welcome to Animalib</SignTitle>
-            <Form className="AniForm" Fields={RegisterField}></Form>
+            <SignTitle>{LangContextx.SignAniFormRegisterTitle} {LangContextx.Title}</SignTitle>
+            <Form className="AniForm" Fields={RegisterField} Action={RegisterAction}></Form>
           </FormContainer>
       {/* Switch apparition de l'un ou de l'autre */}
       <StyledButtonSwitch
@@ -44,7 +46,7 @@ const AniForm = () => {
           setTypeForm(!TypeForm);
         }}
       >
-        {TypeForm ? "Sign In" : "Sign Up"}
+        {TypeForm ? LangContextx.SignIn : LangContextx.SignUp}
       </StyledButtonSwitch>
     </>
   );
