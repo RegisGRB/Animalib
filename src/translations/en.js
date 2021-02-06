@@ -25,14 +25,14 @@ module.exports = {
   Password:"Password",
   Email:"Email",
   Submit:"Submit",
-
+  Type:"Type",
   Color:"Color",
   Race:"Race",
   Sex:"Sex",
   Chip:"Chip ID",
   Sterile:"Sterile",
   Weight:"Weight",
-  
+  Events:"Events",
 
   SignTextLogin1: "Welcome Please",
   SignLogin:"Login",
@@ -44,5 +44,7 @@ module.exports = {
  SignIn:"Sign In",
  SignUp:"Sign up",
 
- AddAnimal:"Add Animal"
+ AddAnimal:"Add Animal",
+ Add:"Add",
+ Edit:"Edit"
 };

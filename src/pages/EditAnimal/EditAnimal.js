@@ -7,6 +7,7 @@ import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import { CgCloseO, CgCheckO } from "react-icons/cg";
+import { AiFillPlusCircle } from "react-icons/ai";
 import MotionModal from "../../components/Motion/MotionModal";
 import { LangContext } from "../../context";
 import SpanText from "../../components/elements/SpanText";
@@ -93,7 +94,7 @@ const Edit = () => {
         <Form className="AniForm" Fields={AnimalFields}></Form>
       </EditContainer>
       <DeleteAnimalButton onClick={() => setDeleteModal(true)} as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} >
-        <CgCloseO></CgCloseO>
+        <AiFillPlusCircle></AiFillPlusCircle>
       </DeleteAnimalButton>
       <MotionModal controller={DeleteModal} hidden={[0, 0, 0]} show={[0, 0, 1]}>
         <DeleteContainer >
@@ -157,9 +158,10 @@ const PreventDeleteButton = styled(AnimalItem.BackButton)`
 const DeleteAnimalButton = styled(AnimalItem.BackButton)`
   left: unset;
   right: 40px;
+  transform:rotate(45deg);
+  border-color:red;
   &:hover {
-    transform: scale(1);
-    color: red;
+    transform: rotate(45deg) scale(1.1);
   }
   @media (max-width: ${(props) => props.theme.breakpoints.md}) {
     left: 20px;

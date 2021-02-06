@@ -34,8 +34,8 @@ module.exports = {
   Chip:"Puce ID",
   Sterile:"Sterile",
   Weight:"Poids",
-
-
+  Events:"Evenements",
+  
   SignTextLogin1:"Bienvenue s'il vous plaît",
   SignLogin:"Identifier vous",
   SignTextLogin2:"à votre compte",
@@ -45,6 +45,7 @@ module.exports = {
   SignIn:"connectez-vous",
   SignUp:"inscrivez-vous",
 
-  AddAnimal:"Ajouter un animal"
-
+  AddAnimal:"Ajouter un animal",
+  Add:"Ajouter un ",
+  Edit:"Modifier un"
 };
