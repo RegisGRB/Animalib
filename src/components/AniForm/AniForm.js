@@ -1,13 +1,12 @@
 import React from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
 import Form from "../../components/ui/Form/Form";
 import styled from "styled-components";
 import perro from "../../assets/icon/Animal Solid/PNG/240 x 240/toucan, beak, parrot.png";
 import { useHistory } from "react-router-dom";
-import Auth from "../../utils/Auth";
 import { AuthService } from "../../services";
 import {LangContext} from "../../context";
+import {Auth} from "../../utils";
 
 const AniForm = () => {
   const LangContextx = React.useContext(LangContext);
@@ -19,39 +18,45 @@ const AniForm = () => {
     AuthService.login(data);
     history.push("/Profile");
   };
-  const RegisterAction = () => {}; // action faites avec la data de retour du formulaire REGISTER
+
+  const RegisterAction = (data) => {
+    // action faites avec la data de retour du formulaire REGISTER
+    AuthService.register(data);
+    history.push("/Profile");
+  };
+
   return (
-    <>
-      <SignLogo src={perro}></SignLogo>
-      {/* block Login */}
-          <FormContainer
-            variants={variantForm}
-            animate={TypeForm ? "show" : "initial"}
-          >
-            <SignTitle>{LangContextx.SignAniFormLoginTitle}</SignTitle>
-            <Form
-              className="AniForm"
-              Fields={LoginField}
-              Action={handleLogin}
-            ></Form>
-          </FormContainer>
-            {/* block register */}
-          <FormContainer
-            variants={variantForm}
-            animate={TypeForm ? "exit" : "show"}
-          >
-            <SignTitle>{LangContextx.SignAniFormRegisterTitle} {LangContextx.Title}</SignTitle>
-            <Form className="AniForm" Fields={RegisterField} Action={RegisterAction}></Form>
-          </FormContainer>
-      {/* Switch apparition de l'un ou de l'autre */}
-      <StyledButtonSwitch
-        onClick={() => {
-          setTypeForm(!TypeForm);
-        }}
-      >
-        {TypeForm ? LangContextx.SignIn : LangContextx.SignUp}
-      </StyledButtonSwitch>
-    </>
+      <>
+        <SignLogo src={perro}></SignLogo>
+        {/* block Login */}
+            <FormContainer
+              variants={variantForm}
+              animate={TypeForm ? "show" : "initial"}
+            >
+              <SignTitle>{LangContextx.SignAniFormLoginTitle}</SignTitle>
+              <Form
+                className="AniForm"
+                Fields={LoginField}
+                Action={handleLogin}
+              ></Form>
+            </FormContainer>
+              {/* block register */}
+            <FormContainer
+              variants={variantForm}
+              animate={TypeForm ? "exit" : "show"}
+            >
+              <SignTitle>{LangContextx.SignAniFormRegisterTitle} {LangContextx.Title}</SignTitle>
+              <Form className="AniForm" Fields={RegisterField} Action={RegisterAction}></Form>
+            </FormContainer>
+        {/* Switch apparition de l'un ou de l'autre */}
+        <StyledButtonSwitch
+          onClick={() => {
+            setTypeForm(!TypeForm);
+          }}
+        >
+          {TypeForm ? LangContextx.SignIn : LangContextx.SignUp}
+        </StyledButtonSwitch>
+      </>
   );
 };
 const LoginField = {

@@ -4,6 +4,7 @@ import * as Pages from "../pages";
 import { AnimatePresence } from "framer-motion";
 // import NavBar from "../components/ui/NavBar/NavBar";
 import { AiOutlineProfile } from "react-icons/ai";
+import Auth from "../utils/Auth";
 
 const Router = () => {
   const routes = [
@@ -97,7 +98,7 @@ const Router = () => {
               <Switch location={location} key={location.pathname}>
                 {routes.map((route) =>
                   route.protectedRoute === true &&
-                  !localStorage.getItem("token") ? (
+                  !Auth.isLoggedIn() ? (
                     <Redirect to="/"></Redirect>
                   ) : (
                     <Route

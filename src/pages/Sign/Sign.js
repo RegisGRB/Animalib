@@ -8,17 +8,15 @@ import {LangContext} from "../../context";
 import LangSwitcher from "../../components/ui/LangSwitcher/LangSwitcher";
 
 const Sign = () => {
-  let history = useHistory();
-
+  const LangContextx = React.useContext(LangContext);
   const [LoginOn, setLoginOn] = React.useState(false);
 
-  // if logged or after login AniForm return to page Profile
+  let history = useHistory();
+
   if(Auth.isLoggedIn()) {
     console.log("logged");
+    history.push("/Profile");
   }
-  // after login AniForm return to page Profile
-
-  const LangContextx = React.useContext(LangContext);
 
   return (
     <SignContainer

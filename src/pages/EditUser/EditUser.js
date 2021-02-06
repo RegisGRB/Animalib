@@ -2,7 +2,6 @@ import React from "react";
 import { AiOutlineEdit,AiOutlineRollback } from "react-icons/ai";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import * as AnimalItem from "../../components/elements/AnimalItem";
@@ -10,23 +9,31 @@ import { useHistory } from "react-router-dom";
 import {LangContext} from "../../context";
 import ThemeSwitcher from "../../components/ui/ThemeSwitcher/ThemeSwitcher";
 import LangSwitcher from "../../components/ui/LangSwitcher/LangSwitcher";
+import Auth from "../../utils/Auth";
+import {AuthService} from "../../services";
+
 const EditUser = () => {
   const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   let history = useHistory();
-    const data = fakedata;
-    
-const AnimalFields = {
+  const user = Auth.getUser();
+
+  const handleSave = (data) => {
+    // action faites avec la data de retour du formulaire LOGIN
+    AuthService.update(data);
+  };
+
+  const AnimalFields = {
   // Login Fields
   RFirstName: {
     type: "text",
     placeholder: LangContextx.FirstName,
-    value: data.firstname,
+    value: user.firstname,
   },
   RLastName: {
     type: "text",
     placeholder: LangContextx.LastName,
-    value: data.lastname,
+    value: user.lastname,
   },
   RPassword: {
     type: "Password",
@@ -36,7 +43,7 @@ const AnimalFields = {
   REmail: {
     type: "Email",
     placeholder: LangContextx.Email,
-    value: data.email,
+    value: user.email,
     required: true,
   },
   ASubmit: {
@@ -47,7 +54,7 @@ const AnimalFields = {
   return (
 <motion.div>
     <AnimalItem.UserContainer initial={{y:window.innerHeight/3 }} exit={{y: 0,opacity:0.7}} transition={{duration: 0.2}}>
-        <AnimalItem.UserTitle as={motion.span} size="lg"  >{data.firstname}</AnimalItem.UserTitle>
+        <AnimalItem.UserTitle as={motion.span} size="lg"  >{user.firstname}</AnimalItem.UserTitle>
         <AnimalItem.EditUserButton><AiOutlineEdit></AiOutlineEdit></AnimalItem.EditUserButton>
       </AnimalItem.UserContainer>
       <EditContainer
@@ -56,7 +63,7 @@ const AnimalFields = {
         exit="liItemexit"
         variants={variants}
       >
-        <Form className="AniForm" Fields={AnimalFields}></Form>
+        <Form className="AniForm" Fields={AnimalFields} Action={handleSave}></Form>
         <motion.div as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}}>
             <LangSwitcher></LangSwitcher>
             <ThemeSwitcher></ThemeSwitcher>

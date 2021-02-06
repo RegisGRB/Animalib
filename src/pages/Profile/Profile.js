@@ -9,34 +9,50 @@ import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import SpanText from "../../components/elements/SpanText";
 import { AiOutlineEdit,AiTwotoneCalendar,AiOutlineReconciliation,AiFillPlusCircle } from "react-icons/ai";
-
 import StyledTheme from "../../components/StyledComponents/StyledTheme";
 import {LangContext} from "../../context";
+import Auth from "../../utils/Auth";
+import {AnimalService} from "../../services";
+import {useEffect} from "react";
 const Profile = () => {
   const LangContextx = React.useContext(LangContext);
-  const [indexClicked,setindexClicked] = React.useState(0);
-// -2 EditUser animation
-// -1 AddAnimal animation
-// >= 0  AnimalSelect animation
+  const user = Auth.getUser();
+
+  const [animals, setAnimals] = React.useState([]);
+
+  useEffect(() => {
+      AnimalService.fetchUserAnimal(user._id, user.token)
+          .then(res => {
+            if(!res.data) {
+                return;
+            }
+            setAnimals(res.data);
+          });
+  }, []);
+
+  const [indexClicked, setindexClicked] = React.useState(0);
+    // -2 EditUser animation
+    // -1 AddAnimal animation
+    // >= 0  AnimalSelect animation
   let history = useHistory();
   // Page de transition entre Overview Calendar et Edit
 
-  const Action = ( Value, redirect) => { {/* action de transition pour naviguer entre les pages */}
+  const Action = (Value, redirect) => { {/* action de transition pour naviguer entre les pages */}
       setindexClicked(Value);
       history.push(redirect);
   };
   return (
     <SliderContainer as={motion.div} initial={{opacity:0}} animate={{opacity:1,duration:0.2}}>
-      <AnimalItem.UserContainer onClick={()=>Action(-2,("/EditUser/"+fakedata._id))} exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3) : 0,duration:1}}  >
+      <AnimalItem.UserContainer onClick={()=>Action(-2,("/EditUser/"+user._id))} exit={{opacity:indexClicked === -2 ? 0.7 : 0,y:indexClicked === -2 ? (window.innerHeight/3) : 0,duration:1}}  >
         <StyledTheme flex={true}>
-            <AnimalItem.UserTitle as={motion.span} size="lg"  >{fakedata.firstname}</AnimalItem.UserTitle>
+            <AnimalItem.UserTitle as={motion.span} size="lg"  >{user.firstname}</AnimalItem.UserTitle>
             <EditUserButton ><AiOutlineEdit></AiOutlineEdit></EditUserButton>
         </StyledTheme>
       </AnimalItem.UserContainer>
       <CalendarButton onClick={()=>Action(-2,("/Calendar"))}><AiTwotoneCalendar></AiTwotoneCalendar></CalendarButton>
-      <DisconnectTitle as={motion.span} size="sm" onClick={()=>{localStorage.clear();Action(null, "/")}} exit={{opacity: 0,...transition,duration:0.2}}>{LangContextx.LogOut}</DisconnectTitle>
+      <DisconnectTitle as={motion.span} size="sm" onClick={()=>{ Auth.logout(); Action(null, "/")}} exit={{opacity: 0,...transition,duration:0.2}}>{LangContextx.LogOut}</DisconnectTitle>
       <Carousel>
-        {fakedata.animal.map((animal, index) => (  
+        {animals.map((animal, index) => (
           <motion.div
             className="slide"
             key={index+animal.id}
@@ -45,8 +61,8 @@ const Profile = () => {
              {/* Button utilisé pour navigué entre les différents page d'un animal Edit OverView Calendar*/}
             <div className="ButtonSlide">
               <motion.div exit={{opacity: 0,...transition,duration:1.2}}>
-                <EditButton onClick={() => Action(index, ("/EditAnimal/" + animal.id))}><AiOutlineEdit></AiOutlineEdit></EditButton>
-              
+                <EditButton onClick={() => Action(index, ("/EditAnimal/" + animal._id))}><AiOutlineEdit></AiOutlineEdit></EditButton>
+
                 {/*<OverViewButton onClick={() => Action(index, ("/OverView/" + animal.id))}><AiOutlineReconciliation></AiOutlineReconciliation></OverViewButton> */}
               </motion.div>
             </div>
@@ -57,7 +73,7 @@ const Profile = () => {
               <AnimalItem.ItemSexe size="sm">{LangContextx.Sex}: {animal.sex}</AnimalItem.ItemSexe>
               <AnimalItem.ItemPuce size="sm">{LangContextx.Chip}: {animal.puce_id}</AnimalItem.ItemPuce>
               <AnimalItem.ItemSterile size="sm">{LangContextx.Sterile}: {animal.sterile.toString()}</AnimalItem.ItemSterile>
-              <AnimalItem.ItemPoids size="sm" >{LangContextx.Weight}: {animal.poids}</AnimalItem.ItemPoids>
+              <AnimalItem.ItemPoids size="sm" >{LangContextx.Weight}: {animal.weight}</AnimalItem.ItemPoids>
             </AnimalItem.Itemlist>
           </motion.div>
         ))}

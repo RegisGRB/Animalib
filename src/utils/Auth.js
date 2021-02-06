@@ -7,6 +7,11 @@ export const getUser = () => {
     ? JSON.parse(window.localStorage['animalib_authentification'])
     : {};
 };
+
+export const getToken = () => {
+    return getUser().token || null;
+};
+
 export const isLoggedIn = () => {
     const user = getUser();
     return !!user.token;
@@ -16,4 +21,4 @@ export const logout = () => {
     localStorage.removeItem('animalib_authentification');
 };
 
-export default { setUser, getUser, isLoggedIn };
+export default { setUser, getUser, getToken, isLoggedIn, logout };
