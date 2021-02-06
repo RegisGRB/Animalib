@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  AiOutlineSetting,
-  AiOutlineCalendar,
-  AiOutlineProfile,
-} from "react-icons/ai";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -18,7 +13,7 @@ const NavBar = ({ routes,location }) => {
         initial="Logoinitial"
         animate="Logoshow"
       >
-        <img src={perro}></img>
+        <img src={perro} alt=""></img>
         <span>Animalib</span>
       </motion.div>
       <ul>
@@ -113,8 +108,5 @@ const NavContainer = styled.div`
     }
   }
 `;
-const StyledIcon = styled.div``;
-const styledLink = styled(Link)`
-  display: flex;
-`;
+
 export default NavBar;

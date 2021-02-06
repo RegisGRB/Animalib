@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./App.scss";
 import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 import reportWebVitals from "./reportWebVitals";
-
+import firebase from "./firebase";
 import Router from "./layouts/Router";
 import { ContextContainer } from "./context";
 import { Provider } from "react-redux";
@@ -19,6 +19,20 @@ ReactDOM.render(
   </React.StrictMode>,
   document.getElementById("root")
 );
+
+const askForPermissioToReceiveNotifications = async () => {
+  try {
+    const messaging = firebase.messaging();
+    await messaging.requestPermission();
+    const token = await messaging.getToken();
+    console.log('token FIREBASE:', token);
+    
+    return token;
+  } catch (error) {
+    console.error(error);
+  }
+}
+askForPermissioToReceiveNotifications();
 /*
                 ->Edit
 Sign -> Profile ->OverView
