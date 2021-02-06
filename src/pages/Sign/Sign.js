@@ -2,9 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import AniFormModal from "../../components/AniForm/AniFormModal";
 import { motion } from "framer-motion";
+import Auth from "../../utils/Auth";
+import { useHistory, Redirect } from "react-router-dom";
 const Sign = () => {
+  let history = useHistory();
+
   const [LoginOn, setLoginOn] = React.useState(false);
-  // after login AniForm return to page Profile
+
+  // if logged or after login AniForm return to page Profile
+  if(Auth.isLoggedIn()) {
+    console.log("logged");
+  }
+
   return (
     <SignContainer
       exit={{ opacity: 0 }}

@@ -1,17 +1,20 @@
 import React from "react";
+import axios from "axios";
 import { motion } from "framer-motion";
 import Form from "../../components/ui/Form/Form";
 import styled from "styled-components";
 import perro from "../../assets/icon/Animal Solid/PNG/240 x 240/toucan, beak, parrot.png";
 import { useHistory } from "react-router-dom";
+import Auth from "../../utils/Auth";
+import { AuthService } from "../../services";
+
 const AniForm = () => {
   let history = useHistory();
   const [TypeForm, setTypeForm] = React.useState(true); // type form true login false register
 
-  const LoginAction = (data) => {
+  const handleLogin = (data) => {
     // action faites avec la data de retour du formulaire LOGIN
-    console.log(data);
-    localStorage.setItem("token", "pokemon");
+    AuthService.login(data);
     history.push("/Profile");
   };
   const RegisterAction = () => {}; // action faites avec la data de retour du formulaire REGISTER
@@ -27,7 +30,7 @@ const AniForm = () => {
             <Form
               className="AniForm"
               Fields={LoginField}
-              Action={LoginAction}
+              Action={handleLogin}
             ></Form>
           </FormContainer>
             {/* block register */}

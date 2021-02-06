@@ -20,7 +20,6 @@ const Form = ({
     if (UrlAPI) {
       APICALL();
     } else {
-      console.log(FormState);
       Action(FormState);
       history.push(Redirect);
     }
