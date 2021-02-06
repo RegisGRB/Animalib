@@ -77,7 +77,7 @@ const Calendar = () => {
       },
     };
 
-    const ActionForm = () =>{
+    const ActionForm = (data) =>{
         if(Edit===true){
           console.log(EditValue.id); // EditValue = all the value of the animal
             // EDIT FORM ACTION
