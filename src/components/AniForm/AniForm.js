@@ -19,6 +19,8 @@ const AniForm = () => {
     console.log(AuthService.login(data));
     if(isLoggedIn()){
     history.push("/Profile");
+    }else{
+      setError(true);
     }
   };
 
