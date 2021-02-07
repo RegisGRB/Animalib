@@ -25,7 +25,6 @@ const Profile = () => {
             if(!res.data) {
                 return;
             }
-            console.log(res.data);
             setAnimals(res.data);
           });
   }, []);

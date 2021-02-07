@@ -49,5 +49,10 @@ module.exports = {
 
   AddAnimal:"Ajouter un animal",
   Add:"Ajouter un ",
-  Edit:"Modifier un"
+  Edit:"Modifier un",
+
+  dog:"chien",
+  cat:"chat",
+  rabbit:"lapin",
+  bird:"oiseau"
 };

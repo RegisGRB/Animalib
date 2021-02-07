@@ -28,12 +28,12 @@ const AddAnimal = () => {
       option: ["Male", "Female"],
       required: true,
     },
-
     ARace: {
-      type: "Text",
-      placeholder: LangContextx.Race,
+      name: "Race",
+      as: "select",
       value: "",
-      required: false,
+      option: [LangContextx.cat,LangContextx.bird,LangContextx.rabbit,LangContextx.dog],
+      required: true,
     },
     ADob: {
       type: "date",
