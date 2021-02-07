@@ -17,6 +17,8 @@ module.exports = {
   PWAInstall:"Installer l'application",
   Title:"Animalib",
   LogOut:"déconnexion",
+  ErrorLogin:"Votre login ou votre mot de passe est incorrect",
+  ErrorRegister:"Vos informations sont incorrect",
 
   Name:"Nom",
   Results:"Resultats",

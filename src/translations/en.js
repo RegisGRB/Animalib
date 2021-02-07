@@ -33,7 +33,8 @@ module.exports = {
   Sterile:"Sterile",
   Weight:"Weight",
   Events:"Events",
-
+  ErrorLogin:"Your Login or Password is incorrect",
+  ErrorRegister:"Your data is incorrect",
   SignTextLogin1: "Welcome Please",
   SignLogin:"Login",
   SignTextLogin2: "to your account",

@@ -8,7 +8,7 @@ import helpers from "../../utils/helpers";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import SpanText from "../../components/elements/SpanText";
-import { AiOutlineEdit,AiTwotoneCalendar,AiOutlineReconciliation,AiFillPlusCircle } from "react-icons/ai";
+import { AiOutlineEdit,AiTwotoneCalendar,AiFillPlusCircle } from "react-icons/ai";
 import StyledTheme from "../../components/StyledComponents/StyledTheme";
 import {LangContext} from "../../context";
 import Auth from "../../utils/Auth";
@@ -17,26 +17,22 @@ import {useEffect} from "react";
 const Profile = () => {
   const LangContextx = React.useContext(LangContext);
   const user = Auth.getUser();
-
+  let history = useHistory();
   const [animals, setAnimals] = React.useState([]);
-
   useEffect(() => {
       AnimalService.fetchUserAnimal(user._id, user.token)
           .then(res => {
             if(!res.data) {
                 return;
             }
+            console.log(res.data);
             setAnimals(res.data);
           });
   }, []);
-
   const [indexClicked, setindexClicked] = React.useState(0);
     // -2 EditUser animation
     // -1 AddAnimal animation
     // >= 0  AnimalSelect animation
-  let history = useHistory();
-  // Page de transition entre Overview Calendar et Edit
-
   const Action = (Value, redirect) => { {/* action de transition pour naviguer entre les pages */}
       setindexClicked(Value);
       history.push(redirect);
@@ -51,22 +47,20 @@ const Profile = () => {
       </AnimalItem.UserContainer>
       <CalendarButton onClick={()=>Action(-2,("/Calendar"))}><AiTwotoneCalendar></AiTwotoneCalendar></CalendarButton>
       <DisconnectTitle as={motion.span} size="sm" onClick={()=>{ Auth.logout(); Action(null, "/")}} exit={{opacity: 0,...transition,duration:0.2}}>{LangContextx.LogOut}</DisconnectTitle>
-      <Carousel>
+     {animals.length > 0 ? 
+      <Carousel data={animals}>
         {animals.map((animal, index) => (
           <motion.div
             className="slide"
-            key={index+animal.id}
+            key={index+animal._id}
             exit={{opacity:indexClicked === index ? 1 : 0,...transition,duration:indexClicked === index ? 1 : 0.2}}
           >
-             {/* Button utilisé pour navigué entre les différents page d'un animal Edit OverView Calendar*/}
+            <SlideContainer data={animals.length}>
             <div className="ButtonSlide">
               <motion.div exit={{opacity: 0,...transition,duration:1.2}}>
                 <EditButton onClick={() => Action(index, ("/EditAnimal/" + animal._id))}><AiOutlineEdit></AiOutlineEdit></EditButton>
-
-                {/*<OverViewButton onClick={() => Action(index, ("/OverView/" + animal.id))}><AiOutlineReconciliation></AiOutlineReconciliation></OverViewButton> */}
               </motion.div>
             </div>
-            {/* AnimalItem groupe de styled component utilisé pour les différentes pages et transition pour une form homogene */}
             <AnimalItem.Itemlist>
               <ProfileAnimal type={animal.type}></ProfileAnimal>
               <AnimalItem.ItemName size="md">{animal.name}</AnimalItem.ItemName>
@@ -75,12 +69,15 @@ const Profile = () => {
               <AnimalItem.ItemSterile size="sm">{LangContextx.Sterile}: {animal.sterile.toString()}</AnimalItem.ItemSterile>
               <AnimalItem.ItemPoids size="sm" >{LangContextx.Weight}: {animal.weight}</AnimalItem.ItemPoids>
             </AnimalItem.Itemlist>
+            </SlideContainer>
           </motion.div>
+        
         ))}
          <motion.div
             className="slide"
             exit={{opacity:indexClicked === -1 ? 0.5 : 0,...transition,duration: indexClicked === -1 ? 1 : 0.2}}
           >
+              <SlideContainer data={animals.length}>
              <AnimalItem.Itemlist>
                 <AnimalItem.AddButton ><AiFillPlusCircle  onClick={() => Action(-1,"/AddAnimal")}></AiFillPlusCircle></AnimalItem.AddButton>
               </AnimalItem.Itemlist>
@@ -89,8 +86,10 @@ const Profile = () => {
                   <AnimalItem.AddTitle size="md">{LangContextx.AddAnimal}</AnimalItem.AddTitle>
                 </AnimalItem.AddTitleContainer>
             </div>
+            </SlideContainer>
           </motion.div>
-      </Carousel>
+      </Carousel>: <SpanText>Loading</SpanText>
+}
     </SliderContainer>
   );
 };
@@ -122,6 +121,15 @@ const EditUserButton = styled(AnimalItem.EditUserButton)`
 @media (max-width: ${(props) => props.theme.breakpoints.md}) {
  width:20px;
  height:20px;
+  }
+`;
+const SlideContainer = styled(motion.div)`
+position: relative;
+width: ${(props)=>props.data < 3 ? "33.33%!important" : ""};
+margin-left: ${(props)=>props.data < 3 ? "33.33%" : ""};
+@media (max-width: ${(props) => props.theme.breakpoints.md}) {
+  width: ${(props)=>props.data < 3 ? "100%!important" : ""};
+  margin-left: ${(props)=>props.data < 3 ? "0%" : ""};
   }
 `;
 const CalendarButton = styled(AnimalItem.ItemButton)`

@@ -7,22 +7,31 @@ import { useHistory } from "react-router-dom";
 import { AuthService } from "../../services";
 import {LangContext} from "../../context";
 import {Auth} from "../../utils";
-
+import { isLoggedIn } from "../../utils/Auth";
+import SpanText from "../elements/SpanText";
 const AniForm = () => {
   const LangContextx = React.useContext(LangContext);
+  const [Error,setError] = React.useState(false);
   let history = useHistory();
   const [TypeForm, setTypeForm] = React.useState(true); // type form true login false register
 
   const handleLogin = (data) => {
     // action faites avec la data de retour du formulaire LOGIN
-    AuthService.login(data);
+    console.log(AuthService.login(data));
+    if(isLoggedIn()){
     history.push("/Profile");
+    }else{
+      setError(true);
+      console.log(Error);
+    }
   };
 
   const RegisterAction = (data) => {
     // action faites avec la data de retour du formulaire REGISTER
     AuthService.register(data);
+    if(isLoggedIn()){
     history.push("/Profile");
+    }
   };
 
   return (
@@ -33,7 +42,7 @@ const AniForm = () => {
               variants={variantForm}
               animate={TypeForm ? "show" : "initial"}
             >
-              <SignTitle>{LangContextx.SignAniFormLoginTitle}</SignTitle>
+              <SignTitle as="h1" Error={Error}>{Error ? LangContextx.ErrorLogin : LangContextx.SignAniFormLoginTitle}</SignTitle>
               <Form
                 className="AniForm"
                 Fields={LoginField}
@@ -45,7 +54,7 @@ const AniForm = () => {
               variants={variantForm}
               animate={TypeForm ? "exit" : "show"}
             >
-              <SignTitle>{LangContextx.SignAniFormRegisterTitle} {LangContextx.Title}</SignTitle>
+              <SignTitle as="h1" Error={Error}>{Error ? LangContextx.ErrorRegister : (LangContextx.SignAniFormRegisterTitle +" "+ LangContextx.Title)}</SignTitle>
               <Form className="AniForm" Fields={RegisterField} Action={RegisterAction}></Form>
             </FormContainer>
         {/* Switch apparition de l'un ou de l'autre */}
@@ -116,9 +125,10 @@ const variantForm = {
 const FormContainer = styled(motion.div)`
   position: absolute;
 `;
-const SignTitle = styled.h1`
+const SignTitle = styled(SpanText)`
   margin-bottom: 10%;
   font-size: 1.5rem;
+  color:${(props) => props.Error ? "red" : ""}
 `;
 const SignLogo = styled.img`
   width: 50%;

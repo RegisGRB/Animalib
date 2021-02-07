@@ -12,7 +12,7 @@
   src: url(./assets/font/BlackAnimal.otf);
 }
 * {
-  user-select: none;
+ 
   font-weight: 100;
   padding: 0;
   margin: 0;
@@ -89,13 +89,14 @@ ul{
   transition: all 1000ms ease-in-out;
   opacity:0.5;
   outline: none;
+
 }
 .ButtonSlide{
   transition: all 1000ms ease-in-out;
   opacity: 0;
 }
 
-.slick-list, .slick-track { touch-action:none; }
+
 .slick-active.slick-current .slide{
   transform: scale(1.02);
   opacity:1

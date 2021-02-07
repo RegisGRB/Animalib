@@ -13,10 +13,7 @@ const Sign = () => {
 
   let history = useHistory();
 
-  if(Auth.isLoggedIn()) {
-    console.log("logged");
-    history.push("/Profile");
-  }
+
 
   return (
     <SignContainer
