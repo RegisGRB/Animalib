@@ -1,6 +1,5 @@
 import React from "react";
 import Switch from "../../elements/Switch";
-import { FaGlobeAmericas, FaGlobeEurope } from "react-icons/fa";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { LangContext } from "../../../context";

@@ -3,15 +3,11 @@ import * as AnimalItem from "../../components/elements/AnimalItem";
 import { AiFillPlusCircle,AiOutlineRollback } from "react-icons/ai";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import fakedata from "../Profile/fakedata";
-import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import { useHistory } from "react-router-dom";
 import {LangContext} from "../../context";
 const AddAnimal = () => {
   const LangContextx = React.useContext(LangContext);
-  let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
-  const data = fakedata.animal.filter((x) => x.id === id)[0];
   let history = useHistory();
   const AnimalFields = {
     // Login Fields

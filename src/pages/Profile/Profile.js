@@ -2,9 +2,7 @@ import React from "react";
 import * as AnimalItem from "../../components/elements/AnimalItem";
 import Carousel from "../../components/elements/Carousel";
 import styled from "styled-components";
-import fakedata from "./fakedata";
 import ProfileAnimal from "../../components/elements/ProfileAnimal";
-import helpers from "../../utils/helpers";
 import { useHistory } from "react-router-dom";
 import { motion } from "framer-motion";
 import SpanText from "../../components/elements/SpanText";
@@ -27,7 +25,7 @@ const Profile = () => {
             }
             setAnimals(res.data);
           });
-  }, []);
+  }, [user._id,user.token]);
   const [indexClicked, setindexClicked] = React.useState(0);
     // -2 EditUser animation
     // -1 AddAnimal animation
@@ -151,10 +149,6 @@ right:85px;
 `;
 
 
-const OverViewButton = styled(AnimalItem.ItemButton)`
-bottom:100px;
-right:85px;
-`;
 const transition = {
   ease: [0.43, 0.13, -0.23, 0.9],
 };

@@ -6,7 +6,6 @@ import perro from "../../assets/icon/Animal Solid/PNG/240 x 240/toucan, beak, pa
 import { useHistory } from "react-router-dom";
 import { AuthService } from "../../services";
 import {LangContext} from "../../context";
-import {Auth} from "../../utils";
 import { isLoggedIn } from "../../utils/Auth";
 import SpanText from "../elements/SpanText";
 const AniForm = () => {
@@ -20,9 +19,6 @@ const AniForm = () => {
     console.log(AuthService.login(data));
     if(isLoggedIn()){
     history.push("/Profile");
-    }else{
-      setError(true);
-      console.log(Error);
     }
   };
 
@@ -31,6 +27,8 @@ const AniForm = () => {
     AuthService.register(data);
     if(isLoggedIn()){
     history.push("/Profile");
+    }else{
+      setError(true);
     }
   };
 

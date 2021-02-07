@@ -54,5 +54,8 @@ module.exports = {
   dog:"chien",
   cat:"chat",
   rabbit:"lapin",
-  bird:"oiseau"
+  bird:"oiseau",
+  
+  NotFound:"la page que vous demander est indisponible",
+  SafeBack:"Revenir en lieu sur"
 };

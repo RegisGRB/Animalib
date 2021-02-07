@@ -31,18 +31,7 @@ const Router = () => {
       },
     },
     {
-      // AnimalPlate Intervention sur l'animal
-      path: "/OverView/:id",
-      component: Pages.OverView,
-      protectedRoute: true,
-      nav: {
-        show: false,
-        icon: <AiOutlineProfile />,
-        name: "OverView",
-      },
-    },
-    {
-      // AnimalPlate Intervention sur l'animal
+      // EDIT USER & THEME & LANG SWITCH
       path: "/EditUser/:id",
       component: Pages.EditUser,
       protectedRoute: true,
@@ -53,7 +42,7 @@ const Router = () => {
       },
     },
     {
-      // AnimalPlate Intervention sur l'animal
+      // ADD ANIMAL
       path: "/AddAnimal",
       component: Pages.AddAnimal,
       protectedRoute: true,
@@ -64,7 +53,7 @@ const Router = () => {
       },
     },
     {
-      // AnimalPlate Edit de l'animal
+      // EDIT ANIMAL
       path: "/EditAnimal/:id",
       component: Pages.EditAnimal,
       protectedRoute: true,
@@ -75,14 +64,14 @@ const Router = () => {
       },
     },
     {
-      // AnimalPlate Edit de l'animal
+      // CALENDAR EVENTS ANIMALS
       path: "/Calendar",
       component: Pages.Calendar,
       protectedRoute: true,
       nav: {
         show: false,
         icon: <AiOutlineProfile />,
-        name: "OverView",
+        name: "Calendar",
       },
     },
   ];
@@ -99,7 +88,7 @@ const Router = () => {
                 {routes.map((route) =>
                   route.protectedRoute === true &&
                   !Auth.isLoggedIn() ? (
-                    <Redirect to="/"></Redirect>
+                    <Pages.NotFound></Pages.NotFound>
                   ) : (
                     <Route
                       exact
