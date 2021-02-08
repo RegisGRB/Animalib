@@ -16,7 +16,6 @@ const AniForm = () => {
 
   const handleLogin = (data) => {
     // action faites avec la data de retour du formulaire LOGIN
-    console.log(AuthService.login(data));
     if(isLoggedIn()){
     history.push("/Profile");
     }else{
