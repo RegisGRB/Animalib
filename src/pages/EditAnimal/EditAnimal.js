@@ -17,8 +17,18 @@ const Edit = () => {
   const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   const [DeleteModal, setDeleteModal] = React.useState(false);
-  const data = AnimalService.fetchAnimal(id);
+  const [data,setdata] = React.useState({});
 
+  React.useEffect(() => {
+    AnimalService.fetchAnimal(id)
+        .then(res => {
+          if(!res.data) {
+              return;
+          }
+          console.log(res.data);
+          setdata(res.data);
+        });
+}, []);
   const AnimalFields = {
     // Login Fields
     AName: {
@@ -84,7 +94,8 @@ const Edit = () => {
     history.push("/Profile");
   }
   return (
-    // animalPlate affichant l'animal de base tel la fin de l'animation de profile puis fait une animation en fonction de variants definie ci-dessous
+    <>
+   {data.type ?  // animalPlate affichant l'animal de base tel la fin de l'animation de profile puis fait une animation en fonction de variants definie ci-dessous
     <AnimalPlate transition={transition} variants={variants} data={data}>
       {/*element des différentes intervention de l'animal  */}
       <EditContainer
@@ -115,7 +126,9 @@ const Edit = () => {
           </SurDeleteModal>
         </DeleteContainer>
       </MotionModal>
-    </AnimalPlate>
+    </AnimalPlate>:<SpanText>Loading</SpanText>
+  }
+  </>
   );
 };
 const SurDeleteModal = styled(motion.div)`

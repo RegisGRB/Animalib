@@ -36,7 +36,7 @@ import bird3 from "../../assets/type/bird3.png";
   },
   rabbit: {
     1: rabbit1,
-    2: rabbit2,
+    2: rabbit2, 
     3: rabbit3,
   },
 };
