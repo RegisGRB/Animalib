@@ -3,16 +3,12 @@ import * as AnimalItem from "../../components/elements/AnimalItem";
 import { AiFillPlusCircle,AiOutlineRollback } from "react-icons/ai";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import fakedata from "../Profile/fakedata";
-import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import { useHistory } from "react-router-dom";
 import {LangContext} from "../../context";
 import {AnimalService} from "../../services";
 const AddAnimal = () => {
   const LangContextx = React.useContext(LangContext);
-  let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
-
   let history = useHistory();
 
   const handleNewAnimal = (data) => {
@@ -42,10 +38,11 @@ const AddAnimal = () => {
       required: true,
     },
     ARace: {
-      type: "Text",
-      placeholder: LangContextx.Race,
+      name: "Race",
+      as: "select",
       value: "",
-      required: false,
+      option: [LangContextx.cat,LangContextx.bird,LangContextx.rabbit,LangContextx.dog],
+      required: true,
     },
     ADob: {
       type: "date",

@@ -81,6 +81,7 @@ const Edit = () => {
 
   const DeleteAnimal = () =>{
     alert("DELETE"+data.id);
+    history.push("/Profile");
   }
   return (
     // animalPlate affichant l'animal de base tel la fin de l'animation de profile puis fait une animation en fonction de variants definie ci-dessous

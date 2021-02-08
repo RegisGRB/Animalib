@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import AniFormModal from "../../components/AniForm/AniFormModal";
 import { motion } from "framer-motion";
-import Auth from "../../utils/Auth";
-import { useHistory, Redirect } from "react-router-dom";
 import {LangContext} from "../../context";
 import LangSwitcher from "../../components/ui/LangSwitcher/LangSwitcher";
 
@@ -11,17 +9,11 @@ const Sign = () => {
   const LangContextx = React.useContext(LangContext);
   const [LoginOn, setLoginOn] = React.useState(false);
 
-  let history = useHistory();
-
-  if(Auth.isLoggedIn()) {
-    console.log("logged");
-    history.push("/Profile");
-  }
-
   return (
     <SignContainer
-      exit={{ opacity: 0 }}
-      transition={{ ease: [0.43, 0.13, -0.23, 0.9], duration: 0.6 }}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1, ease: [0.43, 0.13, -0.23, 0.9], duration: 0.6 }}
+    exit={{ opacity: 0 , ease: [0.43, 0.13, -0.23, 0.9], duration: 0.6}}
     >
       <LangSwitcher></LangSwitcher>
       {/* SIGN MODAL */}

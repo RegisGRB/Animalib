@@ -1,6 +1,5 @@
 import axios from "axios";
 import auth from "../utils/Auth";
-import Auth from "../utils/Auth";
 
 const API_URL = "https://animalib.herokuapp.com/api/v1";
 
@@ -68,7 +67,7 @@ const AuthService = {
             data: JSON.stringify(user),
             headers: {
                 "Content-Type": "application/json",
-                "x-access-token": Auth.getToken()
+                "x-access-token": auth.getToken()
             }
         })
             .then(res => {

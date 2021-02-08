@@ -21,6 +21,7 @@ const StyledModal = styled(StyledTheme)`
 position:absolute;
 top:0;
 left:0;
+overflow: hidden;
 width:fit-content;
 height:fit-content;
 z-index:9999

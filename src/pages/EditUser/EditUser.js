@@ -2,7 +2,6 @@ import React from "react";
 import { AiOutlineEdit,AiOutlineRollback } from "react-icons/ai";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import * as AnimalItem from "../../components/elements/AnimalItem";
 import { useHistory } from "react-router-dom";
@@ -14,7 +13,6 @@ import {AuthService} from "../../services";
 
 const EditUser = () => {
   const LangContextx = React.useContext(LangContext);
-  let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   let history = useHistory();
   const user = Auth.getUser();
 

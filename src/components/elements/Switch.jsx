@@ -16,7 +16,7 @@ const Switch = ({
     } else {
       FalseAction();
     }
-  }, [On]);
+  }, [On,TrueAction,FalseAction]);
 
   return (
     <StyledSwitchContainer animate On={On} onClick={() => setOn(!On)} {...props}>

@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 import {LangContext} from "../../context";
 import SpanText from "../../components/elements/SpanText";
 import MotionModal from "../../components/Motion/MotionModal";
-import { AiOutlineEdit,AiTwotoneCalendar,AiOutlineRollback,AiFillPlusCircle } from "react-icons/ai";
+import { AiOutlineEdit,AiOutlineRollback,AiFillPlusCircle } from "react-icons/ai";
 const Calendar = () => {
   const LangContextx = React.useContext(LangContext);
   const [Edit,setEdit] = React.useState(false);

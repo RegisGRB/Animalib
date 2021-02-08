@@ -30,6 +30,7 @@ const SignContainerLog = styled(motion.div)`
   justify-content: center;  
   flex-direction: column;
   width: 50vw;
+
   background: ${(props) => props.theme.colors.primary};
   height: 100vh;
   @media (max-width: ${(props) => props.theme.breakpoints.lg}) {

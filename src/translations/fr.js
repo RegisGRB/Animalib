@@ -17,6 +17,8 @@ module.exports = {
   PWAInstall:"Installer l'application",
   Title:"Animalib",
   LogOut:"déconnexion",
+  ErrorLogin:"Votre login ou votre mot de passe est incorrect",
+  ErrorRegister:"Vos informations sont incorrect",
 
   Name:"Nom",
   Results:"Resultats",
@@ -47,5 +49,13 @@ module.exports = {
 
   AddAnimal:"Ajouter un animal",
   Add:"Ajouter un ",
-  Edit:"Modifier un"
+  Edit:"Modifier un",
+
+  dog:"chien",
+  cat:"chat",
+  rabbit:"lapin",
+  bird:"oiseau",
+  
+  NotFound:"la page que vous demander est indisponible",
+  SafeBack:"Revenir en lieu sur"
 };
