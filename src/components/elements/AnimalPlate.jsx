@@ -67,7 +67,7 @@ const AnimalPlate = ({variants,transition,data,children}) => {
           animate={screenWidth <= ThemeContextx.breakpointsValue.md ? "MobileanimateSterile" : "animateSterile"}
           size="sm"
         >
-          {LangContextx.Sterile}: {data.sterile.toString()}
+          {LangContextx.Sterile}: { data.sterile ? data.sterile.toString() : "" }
         </AnimalItem.ItemSterile>
         <AnimalItem.ItemPoids
           as={motion.span}

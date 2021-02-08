@@ -3,7 +3,6 @@ import AnimalPlate from "../../components/elements/AnimalPlate";
 import * as AnimalItem from "../../components/elements/AnimalItem";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import fakedata from "../Profile/fakedata";
 import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import { CgCloseO, CgCheckO } from "react-icons/cg";
@@ -12,12 +11,14 @@ import MotionModal from "../../components/Motion/MotionModal";
 import { LangContext } from "../../context";
 import SpanText from "../../components/elements/SpanText";
 import { useHistory } from "react-router-dom";
+import {AnimalService} from "../../services";
 const Edit = () => {
   let history = useHistory();
   const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   const [DeleteModal, setDeleteModal] = React.useState(false);
-  const data = fakedata.animal.filter((x) => x.id === id)[0];
+  const data = AnimalService.fetchAnimal(id);
+
   const AnimalFields = {
     // Login Fields
     AName: {

@@ -8,17 +8,30 @@ import { useParams } from "react-router-dom";
 import Form from "../../components/ui/Form/Form";
 import { useHistory } from "react-router-dom";
 import {LangContext} from "../../context";
+import {AnimalService} from "../../services";
 const AddAnimal = () => {
   const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
-  const data = fakedata.animal.filter((x) => x.id === id)[0];
+
   let history = useHistory();
+
+  const handleNewAnimal = (data) => {
+      AnimalService.addAnimal(data);
+  }
+
   const AnimalFields = {
     // Login Fields
     AName: {
       type: "Text",
       placeholder: LangContextx.Name,
       value: "",
+      required: true,
+    },
+    AType: {
+      name: "Type",
+      as: "select",
+      value: "",
+      option: ["bird", "chat", "dog", "rabbit"],
       required: true,
     },
     ASelect: {
@@ -28,7 +41,6 @@ const AddAnimal = () => {
       option: ["Male", "Female"],
       required: true,
     },
-
     ARace: {
       type: "Text",
       placeholder: LangContextx.Race,
@@ -100,7 +112,7 @@ const AddAnimal = () => {
         exit="liItemexit"
         variants={variants}
       >
-        <Form className="AniForm" Fields={AnimalFields}></Form>
+        <Form className="AniForm" Fields={AnimalFields} Action={handleNewAnimal}></Form>
       </EditContainer>
       <AnimalItem.BackButton as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} onClick={()=>history.push("/Profile")}><AiOutlineRollback></AiOutlineRollback></AnimalItem.BackButton>
 
