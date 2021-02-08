@@ -50,11 +50,15 @@ const AnimalService = {
         return axios({
             method: 'patch',
             url: `${API_URL}/animal/${id_animal}`,
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": Auth.getToken()
+            },
             data: {
+                _id: id_animal,
                 id_owner: Auth.getUser()._id,
                 name: data.AName.value,
                 sex: data.ASelect.value,
-                type: data.AType.value,
                 race: data.ARace.value,
                 dob: data.ADob.value,
                 color: data.Acolor.value,
@@ -63,6 +67,16 @@ const AnimalService = {
                 puce_id: data.APuce_id.value
             }
         })
+    },
+    deleteAnimal: (id_animal) => {
+        return axios({
+            method: "delete",
+            url: `${API_URL}/animal/${id_animal}`,
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": Auth.getToken()
+            },
+        });
     }
 };
 

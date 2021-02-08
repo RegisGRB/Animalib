@@ -17,7 +17,7 @@ const Edit = () => {
   const LangContextx = React.useContext(LangContext);
   let { id } = useParams(); // en fonction de l'id dans l'url affiche un animal
   const [DeleteModal, setDeleteModal] = React.useState(false);
-  const [data,setdata] = React.useState({});
+  const [data, setData] = React.useState({});
 
   React.useEffect(() => {
     AnimalService.fetchAnimal(id)
@@ -25,10 +25,10 @@ const Edit = () => {
           if(!res.data) {
               return;
           }
-          console.log(res.data);
-          setdata(res.data);
+          setData(res.data);
         });
-}, []);
+  }, []);
+
   const AnimalFields = {
     // Login Fields
     AName: {
@@ -66,7 +66,7 @@ const Edit = () => {
     APoids: {
       type: "Number",
       placeholder: LangContextx.Weight,
-      value: data.poids,
+      value: data.weight,
       required: false,
     },
     ASterile: {
@@ -89,10 +89,17 @@ const Edit = () => {
     },
   };
 
-  const DeleteAnimal = () =>{
-    alert("DELETE"+data.id);
+  const DeleteAnimal = () => {
+    console.log("delete");
+    // AnimalService.deleteAnimal(id);
+    // history.push("/Profile");
+  }
+
+  const handleSave = (data) => {
+    AnimalService.editAnimal(data, id);
     history.push("/Profile");
   }
+
   return (
     <>
    {data.type ?  // animalPlate affichant l'animal de base tel la fin de l'animation de profile puis fait une animation en fonction de variants definie ci-dessous
@@ -104,7 +111,7 @@ const Edit = () => {
         exit="liItemexit"
         variants={variants}
       >
-        <Form className="AniForm" Fields={AnimalFields}></Form>
+        <Form className="AniForm" Fields={AnimalFields} Action={handleSave}></Form>
       </EditContainer>
       <DeleteAnimalButton onClick={() => setDeleteModal(true)} as={motion.div} initial={{opacity:0}} animate={{opacity:1,transition:{duration:0.6,ease: [0.43, 0.13, -0.23, 0.9],delay:0.6}}} exit={{opacity:0,transition:{duration:0.4,ease: [0.43, 0.13, -0.23, 0.9]}}} >
         <AiFillPlusCircle></AiFillPlusCircle>
@@ -116,7 +123,7 @@ const Edit = () => {
               {LangContextx.Delete} {data.name}
             </TitleDelete>
             <PreventButtonContainer>
-              <PreventDeleteButton onClick={() => DeleteAnimal()}>
+              <PreventDeleteButton onClick={() => console.log("test")}>
                 <CgCheckO></CgCheckO>
               </PreventDeleteButton>
               <PreventDeleteButton onClick={() => setDeleteModal(false)}>
